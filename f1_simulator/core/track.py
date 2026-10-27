@@ -33,4 +33,7 @@ class Track:
         q = self.points[:-1] + u[:, None] * self.seg
         i = int(np.argmin(np.sum((q - p)**2, axis=1)))
         tangent = self.seg[i] / np.linalg.norm(self.seg[i])
-        return (float(self.s[i] + u[i] * (self.s[i+1] - self.s[i])), float(np.cross(tangent, p - q[i])))
+        displacement = p - q[i]
+        # Signed 2D cross product: positive on the left of the track tangent.
+        offset = tangent[0] * displacement[1] - tangent[1] * displacement[0]
+        return (float(self.s[i] + u[i] * (self.s[i+1] - self.s[i])), float(offset))
