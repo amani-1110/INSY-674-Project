@@ -1,44 +1,8 @@
 import math
 import numpy as np
 
-_session = {}
-
-def reset_simulation(track):
-    global _session
-    x, y = track.position(0)
-    _session = dict(time=0., prev_s=0., progress=0., laps=0, off_events=0, was_off=False)
-    state = dict(x=x, y=y, heading=track.heading(0), speed=0.)
-    return state, _race_info(state, track, False)
-
-def _race_info(state, track, lap_complete):
-    s, offset = track.project(state['x'], state['y'])
-    return dict(distance=float(s), elapsed_time=_session['time'], off_track=bool(offset > track.left_width(s) or offset < -track.right_width(s)), lap_complete=lap_complete)
-
-def simulate_step(state, action, dt, track):
-    from physics import update_car
-    if not 0 < dt <= 1:
-        raise ValueError('dt must be between 0 and 1 second')
-    new = update_car(state, action, dt)
-    s, _ = track.project(new['x'], new['y'])
-    delta = (s - _session['prev_s'] + track.length / 2) % track.length - track.length / 2
-    if abs(delta) > max(5, (state['speed'] + 10) * dt * 2):
-        delta = 0
-    _session['progress'] = max(0, _session['progress'] + delta)
-    _session['prev_s'] = s
-    _session['time'] += dt
-    laps = int(_session['progress'] // track.length)
-    complete = laps > _session['laps']
-    _session['laps'] = laps
-    info = _race_info(new, track, complete)
-    if info['off_track'] and not _session['was_off']:
-        _session['off_events'] += 1
-    _session['was_off'] = info['off_track']
-    return new, info
-
-def get_observation(state, track):
-    s, offset = track.project(state['x'], state['y'])
-    error = (state['heading'] - track.heading(s) + math.pi) % (2 * math.pi) - math.pi
-    return dict(speed=float(state['speed']), lateral_offset=float(offset), heading_error=float(error), curvature_ahead=[float(track.curvature(s + d)) for d in (0, 10, 20)])
+from ..core import simulator as simulation
+from ..utils.assets import load_car_images
 
 _renderer = None
 _selected_car = 0
@@ -61,9 +25,7 @@ def render(track, state):
         pts = np.array([track.position(s) for s in np.linspace(0, track.length, 600)])
         center = pts.mean(axis=0)
         scale = min(900 / max(np.ptp(pts[:, 0]), 1), 550 / max(np.ptp(pts[:, 1]), 1))
-        from pathlib import Path
-        folder = Path(__file__).resolve().parent / "assets"
-        _car_images = [pygame.image.load(str(folder / f"car_{i}.png")).convert_alpha() for i in range(1, 5)]
+        _car_images = load_car_images()
         _renderer = (screen, center, scale, pygame.font.SysFont('consolas', 20))
     screen, center, scale, font = _renderer
     def pixel(p):
@@ -89,8 +51,8 @@ def render(track, state):
     sprite = pygame.transform.smoothscale(sprite, (car_width, car_length))
     sprite = pygame.transform.rotate(sprite, math.degrees(h) - 90)
     screen.blit(sprite, sprite.get_rect(center=pixel(p)))
-    info = _race_info(state, track, False)
-    labels = [f"SPEED: {state['speed'] * 3.6:.1f} km/h", f"TIME: {_session['time']:.1f} s", f"LAPS: {_session['laps']}", f"DISTANCE: {info['distance']:.1f} / {track.length:.1f} m", f"OFF TRACK: {info['off_track']}", f"OFF-TRACK EVENTS: {_session['off_events']}"]
+    info = simulation._race_info(state, track, False)
+    labels = [f"SPEED: {state['speed'] * 3.6:.1f} km/h", f"TIME: {simulation._session['time']:.1f} s", f"LAPS: {simulation._session['laps']}", f"DISTANCE: {info['distance']:.1f} / {track.length:.1f} m", f"OFF TRACK: {info['off_track']}", f"OFF-TRACK EVENTS: {simulation._session['off_events']}"]
     for i, line in enumerate(labels):
         screen.blit(font.render(line, True, (255, 255, 255)), (20, 16 + 27 * i))
     screen.blit(font.render('Arrows/WASD: drive | R: reset | C: choose car | Esc: quit', True, (255,255,255)), (20, 710))

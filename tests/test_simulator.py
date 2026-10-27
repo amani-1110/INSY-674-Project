@@ -1,5 +1,5 @@
-from track import Track
-from simulator import reset_simulation, simulate_step, get_observation
+from f1_simulator.core.track import Track
+from f1_simulator.core.simulator import reset_simulation, simulate_step, get_observation
 
 def test_contracts():
     track = Track()
