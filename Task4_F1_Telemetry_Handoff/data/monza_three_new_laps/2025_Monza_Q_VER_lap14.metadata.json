@@ -1,0 +1,87 @@
+{
+  "source": "FastF1",
+  "synthetic": false,
+  "fastf1_version": "3.9.0",
+  "pandas_version": "2.3.3",
+  "exported_at_utc": "2026-10-27T18:24:03.971699+00:00",
+  "year": 2025,
+  "circuit": "Monza",
+  "event_name": "Italian Grand Prix",
+  "session_type": "Q",
+  "driver": "VER",
+  "lap_number": 14,
+  "lap_time_seconds": 78.923,
+  "compound": "SOFT",
+  "tyre_life_laps": 2.0,
+  "track_status": "1",
+  "lap_start_session_seconds": 3990.144,
+  "units": {
+    "time": "s",
+    "x": "m",
+    "y": "m",
+    "speed": "m/s",
+    "throttle": "fraction 0..1",
+    "brake": "binary 0 or 1"
+  },
+  "coordinate_frame": "F1 position frame, converted from 1/10 m; NOT Track world frame",
+  "selection": "IsAccurate; not deleted; no pit in/out; green TrackStatus 1; fastest accepted first; excludes already exported session laps 8 and 17",
+  "quality_policy": {
+    "max_gap_seconds": 1.3,
+    "max_boundary_gap_seconds": 0.75
+  },
+  "native_quality": {
+    "car": {
+      "samples": 302,
+      "missing_values": {
+        "SessionTime": 0,
+        "Speed": 0,
+        "Throttle": 0,
+        "Brake": 0
+      },
+      "first_sample_seconds": 0.17,
+      "last_sample_seconds": 78.81,
+      "max_gap_seconds": 1.1189999999999998
+    },
+    "position": {
+      "samples": 289,
+      "missing_values": {
+        "SessionTime": 0,
+        "X": 0,
+        "Y": 0
+      },
+      "first_sample_seconds": 0.221,
+      "last_sample_seconds": 78.841,
+      "max_gap_seconds": 1.259999999999998
+    }
+  },
+  "cleaning": {
+    "merged_rows": 593,
+    "exported_rows": 593,
+    "rows_dropped_missing_or_infinite": 0,
+    "rows_dropped_outside_lap": 0,
+    "duplicate_timestamps_removed": 0,
+    "first_time_seconds": 0.0,
+    "last_time_seconds": 78.923,
+    "max_gap_seconds": 1.0300000000000011,
+    "merged_source_counts_before_cleaning": {
+      "car": 302,
+      "pos": 289,
+      "interpolation": 2
+    }
+  },
+  "interpolation": "FastF1 get_telemetry(original) merges native car/position timestamps and interpolates channels and lap edges. No extra fixed-rate resampling or filling here. Source counts are row origins, not per-channel proof of measurement.",
+  "distance_plot": "Trapezoidal integral of speed over time, relative to first exported sample; estimated travelled distance, not track centreline s.",
+  "rejected_laps_checked": [],
+  "requested_laps": 3,
+  "exported_laps": 3,
+  "quality_review": {
+    "original_max_gap_seconds": 1.0,
+    "this_export_max_gap_seconds": 1.3,
+    "reason": "Three distinct additional qualifying laps requested; reviewed native streams have no missing channel values, cover the lap, and have longest gaps no larger than 1.26 seconds.",
+    "limitation": "These exploratory records pass a looser gap policy than the original two laps. FastF1 interpolates channels across native gaps. Passing these checks does not certify precise positions or control timing during gaps.",
+    "excluded_lap_numbers": [
+      8,
+      17
+    ]
+  }
+}
