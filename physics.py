@@ -2,6 +2,8 @@
 
 from f1_simulator.physics.detailed import (
     DEFAULT_PARAMS,
+    MAX_SPEED_KMH,
+    MAX_SPEED_MPS,
     CarParams,
     G,
     effective_steering,
@@ -13,6 +15,8 @@ from f1_simulator.physics.detailed import (
 
 __all__ = [
     "DEFAULT_PARAMS",
+    "MAX_SPEED_KMH",
+    "MAX_SPEED_MPS",
     "CarParams",
     "G",
     "effective_steering",

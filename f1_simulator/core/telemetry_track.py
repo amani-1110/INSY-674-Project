@@ -4,6 +4,7 @@ import math
 from pathlib import Path
 
 import numpy as np
+from scipy.spatial import cKDTree
 
 from ..data.lap_records import load_closed_lap_csv
 
@@ -70,6 +71,12 @@ class TelemetryTrack:
         self.points = np.vstack((sampled, sampled[0]))
         self.seg = np.diff(self.points, axis=0)
         self.s = np.arange(segment_count + 1) * self.spacing
+        self._segment_lengths_squared = np.einsum(
+            "ij,ij->i",
+            self.seg,
+            self.seg,
+        )
+        self._point_tree = cKDTree(self.points[:-1])
 
     @classmethod
     def from_csv(cls, path=_DEFAULT_LAP, **kwargs):
@@ -113,20 +120,41 @@ class TelemetryTrack:
 
     def project(self, x, y):
         point = np.array([x, y], dtype=float)
-        lengths_squared = np.einsum("ij,ij->i", self.seg, self.seg)
+        _, nearby_points = self._point_tree.query(
+            point,
+            k=min(8, len(self.points) - 1),
+        )
+        nearby_points = np.atleast_1d(nearby_points)
+        segments = np.unique(
+            np.concatenate(
+                (
+                    nearby_points,
+                    (nearby_points - 1) % (len(self.points) - 1),
+                )
+            )
+        )
+        segment_vectors = self.seg[segments]
+        lengths_squared = self._segment_lengths_squared[segments]
         fractions = np.clip(
-            np.einsum("ij,ij->i", point - self.points[:-1], self.seg)
+            np.einsum(
+                "ij,ij->i",
+                point - self.points[segments],
+                segment_vectors,
+            )
             / lengths_squared,
             0.0,
             1.0,
         )
-        projections = self.points[:-1] + fractions[:, None] * self.seg
+        projections = self.points[segments] + fractions[:, None] * segment_vectors
         distances_squared = np.einsum(
             "ij,ij->i", projections - point, projections - point
         )
-        index = int(np.argmin(distances_squared))
-        tangent = self.seg[index] / math.sqrt(lengths_squared[index])
-        displacement = point - projections[index]
+        selected = int(np.argmin(distances_squared))
+        index = int(segments[selected])
+        tangent = self.seg[index] / math.sqrt(
+            self._segment_lengths_squared[index]
+        )
+        displacement = point - projections[selected]
         offset = tangent[0] * displacement[1] - tangent[1] * displacement[0]
-        distance = self.s[index] + fractions[index] * self.spacing
+        distance = self.s[index] + fractions[selected] * self.spacing
         return float(distance % self.length), float(offset)

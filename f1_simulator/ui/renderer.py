@@ -16,6 +16,25 @@ _CAR_LABEL_COLORS = {
     "BASELINE": (50, 210, 170),
 }
 
+
+def fit_track_view(track, screen_size=(1100, 750), margin=70):
+    """Return a center and scale that fit the full track within the viewport."""
+    screen_width, screen_height = screen_size
+    distances = np.linspace(0, track.length, 1000, endpoint=False)
+    points = []
+    for distance in distances:
+        points.extend(track.boundaries(distance))
+    points = np.asarray(points, dtype=float)
+    minimum = points.min(axis=0)
+    maximum = points.max(axis=0)
+    span = np.maximum(maximum - minimum, 1.0)
+    available_width = max(screen_width - 2 * margin, 1)
+    available_height = max(screen_height - 2 * margin - 50, 1)
+    scale = min(available_width / span[0], available_height / span[1])
+    center = tuple((minimum + maximum) / 2)
+    return center, float(scale)
+
+
 def set_car(index):
     """Select one of the four car sprites (0 through 3)."""
     global _selected_car
@@ -24,7 +43,17 @@ def set_car(index):
     _selected_car = index
 
 
-def render(track, state, cars=None, hud_lines=None):
+def render(
+    track,
+    state,
+    cars=None,
+    hud_lines=None,
+    camera_scale=None,
+    camera_center=None,
+    race_message=None,
+    race_lights=0,
+    lights_go=False,
+):
     global _renderer, _car_images
     import pygame
 
@@ -39,9 +68,14 @@ def render(track, state, cars=None, hud_lines=None):
             pygame.font.SysFont("consolas", 20),
             pygame.font.SysFont("consolas", 15, bold=True),
         )
-    screen, scale, font, tag_font = _renderer
+    screen, default_scale, font, tag_font = _renderer
     screen_width, screen_height = screen.get_size()
-    camera = (state["x"], state["y"])
+    scale = default_scale if camera_scale is None else camera_scale
+    camera = (
+        (state["x"], state["y"])
+        if camera_center is None
+        else camera_center
+    )
 
     def pixel(point):
         return (
@@ -132,6 +166,37 @@ def render(track, state, cars=None, hud_lines=None):
         font.render(instructions, True, (255, 255, 255)),
         (20, screen_height - 40),
     )
+    if race_message is not None:
+        panel = pygame.Rect(
+            screen_width // 2 - 210,
+            screen_height // 2 - 82,
+            420,
+            164,
+        )
+        pygame.draw.rect(screen, (12, 18, 26), panel, border_radius=18)
+        pygame.draw.rect(
+            screen,
+            (180, 190, 200),
+            panel,
+            width=2,
+            border_radius=18,
+        )
+        title = font.render(race_message, True, (255, 255, 255))
+        screen.blit(title, title.get_rect(center=(screen_width // 2, panel.y + 38)))
+        for index in range(5):
+            color = (
+                (35, 220, 95)
+                if lights_go
+                else (235, 45, 50)
+                if index < race_lights
+                else (65, 65, 70)
+            )
+            center = (
+                screen_width // 2 - 120 + index * 60,
+                panel.y + 105,
+            )
+            pygame.draw.circle(screen, (5, 5, 8), center, 23)
+            pygame.draw.circle(screen, color, center, 16)
     pygame.display.flip()
 
 

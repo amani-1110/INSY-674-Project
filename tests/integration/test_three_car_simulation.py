@@ -47,6 +47,27 @@ def test_baseline_controller_runs_in_an_independent_race_session():
     assert baseline.progress >= 0
 
 
+def test_race_session_signals_finish_after_crossing_one_lap():
+    track = TelemetryTrack.from_csv()
+    session = RaceSession(track)
+    session.progress = track.length - 0.1
+    session.previous_s = track.length - 0.1
+    session.state = {
+        "x": track.position(track.length - 0.1)[0],
+        "y": track.position(track.length - 0.1)[1],
+        "heading": track.heading(track.length - 0.1),
+        "speed": 20.0,
+    }
+
+    _, race_info = session.step(
+        {"steering": 0.0, "throttle": 0.0, "brake": 0.0},
+        0.1,
+    )
+
+    assert race_info["lap_complete"] is True
+    assert session.laps == 1
+
+
 def test_telemetry_trained_ai_launches_and_advances_on_monza():
     track = TelemetryTrack.from_csv()
     model = train_telemetry_model(track)

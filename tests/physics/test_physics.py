@@ -7,6 +7,9 @@ import pytest
 
 from f1_simulator.physics import (
     DEFAULT_PARAMS,
+    MAX_SPEED_KMH,
+    MAX_SPEED_MPS,
+    CarParams,
     effective_steering,
     grip_force,
     update_car,
@@ -81,9 +84,24 @@ def test_straight_line_acceleration_is_f1_like():
 def test_top_speed_plateaus_at_realistic_value():
     s = run(start(0), {"throttle": 1.0}, 60)
     top_kmh = s["speed"] * 3.6
-    assert 320 < top_kmh < 380
+    assert top_kmh == pytest.approx(MAX_SPEED_KMH, abs=0.1)
     s2 = update_car(s, {"throttle": 1.0}, 1.0)
     assert abs(s2["speed"] - s["speed"]) < 0.05  # terminal speed reached
+
+
+def test_vehicle_speed_never_exceeds_configured_maximum():
+    state = start(speed=MAX_SPEED_MPS + 20)
+    out = update_car(state, {"throttle": 1.0}, 0.1)
+
+    assert out["speed"] <= MAX_SPEED_MPS
+    custom_params = CarParams(max_speed=40.0)
+    capped = update_car(
+        start(speed=39.0),
+        {"throttle": 1.0},
+        1.0,
+        params=custom_params,
+    )
+    assert capped["speed"] == 40.0
 
 
 def test_braking_stops_car_in_realistic_distance_and_never_reverses():

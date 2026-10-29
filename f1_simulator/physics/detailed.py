@@ -35,6 +35,8 @@ import math
 from dataclasses import dataclass
 
 G = 9.81  # m/s²
+MAX_SPEED_KMH = 372.6
+MAX_SPEED_MPS = MAX_SPEED_KMH / 3.6
 
 
 @dataclass(frozen=True)
@@ -44,12 +46,13 @@ class CarParams:
     max_power: float = 750_000.0    # W (~1000 hp)
     mu: float = 1.7                 # tyre friction coefficient (slick, warm)
     air_density: float = 1.225      # kg/m³
-    drag_area: float = 1.3          # Cd·A in m²  -> top speed ≈ 95 m/s (≈ 340 km/h)
+    drag_area: float = 1.08648      # Cd·A in m² -> terminal speed ≈ 103.5 m/s
     downforce_area: float = 4.0     # Cl·A in m²  -> ~3.5 g grip at 70 m/s
     rolling_coeff: float = 0.015    # rolling-resistance coefficient
     drive_traction_share: float = 0.6  # share of total grip usable for drive (rear-wheel drive)
     max_steer: float = 0.40         # rad, maximum front-wheel angle
     min_drive_speed: float = 1.0    # m/s, avoids power/0 at standstill
+    max_speed: float = MAX_SPEED_MPS
 
 
 DEFAULT_PARAMS = CarParams()
@@ -126,7 +129,7 @@ def update_car(state: dict, action: dict, dt: float,
     x = float(state["x"])
     y = float(state["y"])
     heading = float(state["heading"])
-    v0 = max(float(state["speed"]), 0.0)
+    v0 = _clip(float(state["speed"]), 0.0, params.max_speed)
 
     steering = float(action.get("steering", 0.0))
     throttle = _clip(float(action.get("throttle", 0.0)), 0.0, 1.0)
@@ -143,6 +146,7 @@ def update_car(state: dict, action: dict, dt: float,
     if v1 < 0.0:
         move_dt = v0 / -a if a < 0 else 0.0
         v1 = 0.0
+    v1 = min(v1, params.max_speed)
     v_avg = 0.5 * (v0 + v1)
 
     # 2) Heading update (kinematic bicycle): yaw rate = v · tan(δ) / L.

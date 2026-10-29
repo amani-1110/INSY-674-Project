@@ -26,10 +26,11 @@ new_state = update_car(
 | Mass | 800 kg | car + driver |
 | Power | 750 kW | ~1000 hp |
 | μ (tyre) | 1.7 | warm slicks |
-| CdA / ClA | 1.3 / 4.0 m² | drag / downforce |
+| CdA / ClA | 1.08648 / 4.0 m² | drag / downforce |
 | Max steer | 0.40 rad | steering lock |
+| Maximum speed | 372.6 km/h (103.5 m/s) | hard speed limit |
 
-Resulting behaviour (vs real F1): 0–100 km/h 2.7 s (≈2.6), top speed 351 km/h (≈350),
+Resulting behaviour (vs real F1): 0–100 km/h 2.7 s (≈2.6), top speed 372.6 km/h,
 200→0 km/h in ~60 m, ~4 g cornering at 250 km/h.
 
 ## Limitations

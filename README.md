@@ -16,14 +16,15 @@ FastF1 extraction tests or download new telemetry, install its dependencies
 from `Task4_F1_Telemetry_Handoff/requirements.txt` as well. Loading and
 validating the bundled CSVs does not require FastF1.
 
-## Run the three-car Monza demo
+## Run the four-car Monza demo
 
 ```powershell
 python -m f1_simulator
 ```
 
 The app trains its throttle/brake model from the three bundled VER qualifying
-laps at startup. The pygame window then opens with car selection:
+laps at startup. After car selection, the game shows the full track, zooms in
+to your car, and only then starts the three-second race-light countdown:
 
 - **You** drive with the arrow keys or WASD.
 - **AI** uses the learned throttle/brake model and the baseline steering
@@ -31,9 +32,11 @@ laps at startup. The pygame window then opens with car selection:
 - **BASELINE** is controlled entirely by the rule-based driver.
 - **VER telemetry** replays the fastest bundled lap as a translucent ghost.
 
-Press `R` to reset, `C` to choose another car sprite, and `Esc` to quit.
+The race starts on **GO** and ends when your car completes one lap. Press `R`
+to restart the countdown, `C` to choose another car sprite, and `Esc` to quit.
+The camera follows your car and each visible car has a name tag. The cars
+collide with one another; the recorded VER replay acts as a moving barrier.
 `python -m f1_simulator.demo` is an equivalent entry point.
-The camera follows your car and is zoomed in; each visible car has a name tag.
 
 The Monza route is built from recorded telemetry coordinates, using the
 driver's racing line as a reference path and estimated 10 m road widths. It is
@@ -123,3 +126,4 @@ as compatibility shims.
 
 The detailed vehicle model is not calibrated F1 dynamics. The Monza route and
 road widths are estimated from telemetry and are not an official circuit map.
+The vehicle maximum speed is capped at 372.6 km/h (103.5 m/s).
