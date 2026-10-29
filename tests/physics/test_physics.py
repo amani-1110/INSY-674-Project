@@ -5,8 +5,13 @@ import math
 
 import pytest
 
-from physics import (DEFAULT_PARAMS, effective_steering, grip_force,
-                     update_car, wrap_angle)
+from f1_simulator.physics import (
+    DEFAULT_PARAMS,
+    effective_steering,
+    grip_force,
+    update_car,
+    wrap_angle,
+)
 
 DT = 0.01
 

@@ -3,3 +3,6 @@ pygame
 pytest
 joblib
 scikit-learn
+scipy
+matplotlib
+pandas

@@ -7,6 +7,14 @@ from ..utils.assets import load_car_images
 _renderer = None
 _selected_car = 0
 _car_images = None
+_CAMERA_SCALE = 4.5
+_CAR_LENGTH_PIXELS = 42
+_CAR_LABEL_COLORS = {
+    "YOU": (40, 130, 255),
+    "AI": (235, 65, 65),
+    "VER": (255, 190, 45),
+    "BASELINE": (50, 210, 170),
+}
 
 def set_car(index):
     """Select one of the four car sprites (0 through 3)."""
@@ -15,48 +23,117 @@ def set_car(index):
         raise ValueError("car index must be 0, 1, 2, or 3")
     _selected_car = index
 
-def render(track, state):
+
+def render(track, state, cars=None, hud_lines=None):
     global _renderer, _car_images
     import pygame
+
     if _renderer is None:
         pygame.init()
         screen = pygame.display.set_mode((1100, 750))
-        pygame.display.set_caption('F1 AI Simulator')
-        pts = np.array([track.position(s) for s in np.linspace(0, track.length, 600)])
-        center = pts.mean(axis=0)
-        scale = min(900 / max(np.ptp(pts[:, 0]), 1), 550 / max(np.ptp(pts[:, 1]), 1))
+        pygame.display.set_caption("F1 AI Simulator")
         _car_images = load_car_images()
-        _renderer = (screen, center, scale, pygame.font.SysFont('consolas', 20))
-    screen, center, scale, font = _renderer
-    def pixel(p):
-        return (int(550 + (p[0] - center[0]) * scale), int(415 - (p[1] - center[1]) * scale))
+        _renderer = (
+            screen,
+            _CAMERA_SCALE,
+            pygame.font.SysFont("consolas", 20),
+            pygame.font.SysFont("consolas", 15, bold=True),
+        )
+    screen, scale, font, tag_font = _renderer
+    screen_width, screen_height = screen.get_size()
+    camera = (state["x"], state["y"])
+
+    def pixel(point):
+        return (
+            int(screen_width / 2 + (point[0] - camera[0]) * scale),
+            int(screen_height / 2 - (point[1] - camera[1]) * scale),
+        )
+
     screen.fill((30, 85, 55))
-    ss = np.linspace(0, track.length, 600)
-    left = [pixel(track.boundaries(s)[0]) for s in ss]
-    right = [pixel(track.boundaries(s)[1]) for s in ss]
+    sample_count = max(300, min(1600, int(track.length / 3)))
+    distances = np.linspace(0, track.length, sample_count, endpoint=False)
+    boundaries = [track.boundaries(distance) for distance in distances]
+    left = [pixel(pair[0]) for pair in boundaries]
+    right = [pixel(pair[1]) for pair in boundaries]
     pygame.draw.polygon(screen, (95, 98, 103), left + right[::-1])
-    pygame.draw.lines(screen, (235, 235, 235), True, left, 3)
-    pygame.draw.lines(screen, (235, 235, 235), True, right, 3)
-    a, b = track.boundaries(0)
-    pygame.draw.line(screen, (255, 255, 255), pixel(a), pixel(b), 5)
-    h = state['heading']
-    f = np.array([math.cos(h), math.sin(h)])
-    n = np.array([-math.sin(h), math.cos(h)])
-    p = np.array([state['x'], state['y']])
-    car = [pixel(p + 4 * f), pixel(p - 3 * f + 2 * n), pixel(p - 3 * f - 2 * n)]
-    # scale the top-down sprite to the track, then rotate its nose to match heading
-    sprite = _car_images[_selected_car]
-    car_length = max(24, min(75, int(8 * scale)))
-    car_width = max(12, int(car_length * sprite.get_width() / sprite.get_height()))
-    sprite = pygame.transform.smoothscale(sprite, (car_width, car_length))
-    sprite = pygame.transform.rotate(sprite, math.degrees(h) - 90)
-    screen.blit(sprite, sprite.get_rect(center=pixel(p)))
-    info = simulation._race_info(state, track, False)
-    labels = [f"SPEED: {state['speed'] * 3.6:.1f} km/h", f"TIME: {simulation._session['time']:.1f} s", f"LAPS: {simulation._session['laps']}", f"DISTANCE: {info['distance']:.1f} / {track.length:.1f} m", f"OFF TRACK: {info['off_track']}", f"OFF-TRACK EVENTS: {simulation._session['off_events']}"]
+    pygame.draw.lines(screen, (235, 235, 235), True, left, 2)
+    pygame.draw.lines(screen, (235, 235, 235), True, right, 2)
+    start_left, start_right = track.boundaries(0)
+    pygame.draw.line(
+        screen,
+        (255, 255, 255),
+        pixel(start_left),
+        pixel(start_right),
+        3,
+    )
+    if cars is None:
+        cars = [{
+            "state": state,
+            "label": "CAR",
+            "car_index": _selected_car,
+        }]
+    for car in cars:
+        car_state = car["state"]
+        heading = car_state["heading"]
+        position = (car_state["x"], car_state["y"])
+        screen_position = pixel(position)
+        sprite = _car_images[car.get("car_index", _selected_car)]
+        car_width = max(10, int(_CAR_LENGTH_PIXELS * sprite.get_width() / sprite.get_height()))
+        sprite = pygame.transform.smoothscale(
+            sprite, (car_width, _CAR_LENGTH_PIXELS)
+        )
+        sprite = pygame.transform.rotate(sprite, math.degrees(heading) - 90)
+        if car.get("ghost"):
+            sprite.set_alpha(150)
+        screen.blit(sprite, sprite.get_rect(center=screen_position))
+
+        name = car.get("label")
+        if name and (
+            -50 < screen_position[0] < screen_width + 50
+            and -50 < screen_position[1] < screen_height + 50
+        ):
+            tag = tag_font.render(name, True, (255, 255, 255))
+            tag_background = pygame.Surface(
+                (tag.get_width() + 12, tag.get_height() + 6),
+                pygame.SRCALPHA,
+            )
+            color = _CAR_LABEL_COLORS.get(name, (25, 30, 38))
+            tag_background.fill((*color, 220))
+            tag_position = (
+                screen_position[0] - tag.get_width() // 2 - 6,
+                screen_position[1] - _CAR_LENGTH_PIXELS // 2 - tag.get_height() - 10,
+            )
+            screen.blit(tag_background, tag_position)
+            screen.blit(
+                tag,
+                (tag_position[0] + 6, tag_position[1] + 3),
+            )
+
+    labels = hud_lines
+    if labels is None:
+        info = simulation.get_race_status(state, track)
+        labels = [
+            f"SPEED: {state['speed'] * 3.6:.1f} km/h",
+            f"TIME: {info['elapsed_time']:.1f} s",
+            f"LAPS: {info['laps']}",
+            f"DISTANCE: {info['distance']:.1f} / {track.length:.1f} m",
+            f"OFF TRACK: {info['off_track']}",
+            f"OFF-TRACK EVENTS: {info['off_track_events']}",
+        ]
     for i, line in enumerate(labels):
-        screen.blit(font.render(line, True, (255, 255, 255)), (20, 16 + 27 * i))
-    screen.blit(font.render('Arrows/WASD: drive | R: reset | C: choose car | Esc: quit', True, (255,255,255)), (20, 710))
+        label = font.render(line, True, (255, 255, 255))
+        background = pygame.Surface((label.get_width() + 16, label.get_height() + 6))
+        background.set_alpha(180)
+        background.fill((12, 20, 28))
+        screen.blit(background, (14, 12 + 25 * i))
+        screen.blit(label, (22, 15 + 25 * i))
+    instructions = "Arrows/WASD: drive | R: reset | C: choose car | Esc: quit"
+    screen.blit(
+        font.render(instructions, True, (255, 255, 255)),
+        (20, screen_height - 40),
+    )
     pygame.display.flip()
+
 
 def close_renderer():
     global _renderer

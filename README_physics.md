@@ -3,7 +3,7 @@
 Moves an F1 car in an empty 2D plane. No track needed.
 
 ```python
-from physics import update_car
+from f1_simulator.physics import update_car
 new_state = update_car(
     {"x": 120.0, "y": 80.0, "heading": 0.0, "speed": 20.0},   # m, m, rad, m/s
     {"steering": 0.0, "throttle": 1.0, "brake": 0.0},         # rad (+ = left), 0..1, 0..1

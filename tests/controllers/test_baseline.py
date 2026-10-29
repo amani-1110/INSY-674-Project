@@ -1,4 +1,4 @@
-from baseline import baseline_action
+from f1_simulator.controllers.baseline import baseline_action
 
 
 def test_straight():

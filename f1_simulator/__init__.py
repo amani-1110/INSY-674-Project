@@ -1,1 +1,1 @@
-"""F1 simulator physics, track, and visualization modules."""
+"""Modular F1 simulator package."""
