@@ -1,3 +1,5 @@
 numpy
 pygame
 pytest
+joblib
+scikit-learn
