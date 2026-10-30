@@ -1,0 +1,46 @@
+{
+  "training_laps": [
+    5,
+    11
+  ],
+  "held_out_lap": 14,
+  "grouped_training_validation": {
+    "n_samples": 1181,
+    "n_groups": 2,
+    "n_folds": 2,
+    "mean": {
+      "throttle_mae": 0.06387058742772425,
+      "brake_mae": 0.0800162715837716,
+      "brake_accuracy": 0.952582523158106,
+      "baseline_throttle_mae": 0.30145755910845423,
+      "baseline_brake_mae": 0.22428804955691306,
+      "baseline_brake_accuracy": 0.8712939860621182
+    },
+    "folds": [
+      {
+        "throttle_mae": 0.06610268889199841,
+        "brake_mae": 0.07820545524778132,
+        "brake_accuracy": 0.9526226734348562,
+        "baseline_throttle_mae": 0.30186515706207906,
+        "baseline_brake_mae": 0.22428804955691303,
+        "baseline_brake_accuracy": 0.8730964467005076
+      },
+      {
+        "throttle_mae": 0.06163848596345009,
+        "brake_mae": 0.08182708791976188,
+        "brake_accuracy": 0.9525423728813559,
+        "baseline_throttle_mae": 0.3010499611548294,
+        "baseline_brake_mae": 0.22428804955691306,
+        "baseline_brake_accuracy": 0.8694915254237288
+      }
+    ]
+  },
+  "held_out_metrics": {
+    "n_samples": 593,
+    "throttle_mae": 0.04894518975283805,
+    "brake_mae": 0.05987291976870175,
+    "brake_accuracy": 0.9713322091062394,
+    "baseline_throttle_mae": 0.293583703032484,
+    "baseline_brake_mae": 0.22763314023471687
+  }
+}

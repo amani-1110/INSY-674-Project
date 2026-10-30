@@ -1,0 +1,55 @@
+{
+  "fitted_on_lap": 5,
+  "transform": {
+    "scale": 0.9994206045043977,
+    "rotation": 0.001006548783847296,
+    "translation": [
+      142.4320350922094,
+      99.96434156010741
+    ],
+    "reflected": false,
+    "rms_to_centreline_m": 2.3047247059766276,
+    "_R": [
+      [
+        0.999999493429816,
+        -0.001006548613884653
+      ],
+      [
+        0.0010065486138847563,
+        0.999999493429816
+      ]
+    ]
+  },
+  "laps": {
+    "5": {
+      "samples": 590,
+      "progress_m": 5786.541392544408,
+      "progress_fraction_of_lap": 0.9992829162835224,
+      "backward_steps": 0,
+      "lateral_offset_mean_m": 0.10401355048569592,
+      "lateral_offset_abs_p95_m": 4.07978316956904,
+      "share_within_track_widths": 0.9779661016949153,
+      "heading_error_abs_p95_rad": 0.2448973321825272
+    },
+    "11": {
+      "samples": 591,
+      "progress_m": 5795.675647949953,
+      "progress_fraction_of_lap": 1.0008603188735206,
+      "backward_steps": 0,
+      "lateral_offset_mean_m": 0.15227367938841316,
+      "lateral_offset_abs_p95_m": 4.331486448565087,
+      "share_within_track_widths": 0.9729272419627749,
+      "heading_error_abs_p95_rad": 0.24672142480527537
+    },
+    "14": {
+      "samples": 593,
+      "progress_m": 5806.691675094938,
+      "progress_fraction_of_lap": 1.0027626862782508,
+      "backward_steps": 0,
+      "lateral_offset_mean_m": 0.17668837177092525,
+      "lateral_offset_abs_p95_m": 4.32970319940628,
+      "share_within_track_widths": 0.9747048903878583,
+      "heading_error_abs_p95_rad": 0.2622764082807514
+    }
+  }
+}

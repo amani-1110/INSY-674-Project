@@ -1,0 +1,10 @@
+{
+  "lap_time": 86.19999999999938,
+  "distance_travelled": 6017.0087195584665,
+  "off_track_events": 14,
+  "completed_lap": true,
+  "controller_name": "imitation_20m",
+  "elapsed_time": 86.19999999999938,
+  "valid_lap": false,
+  "termination": "lap_complete"
+}

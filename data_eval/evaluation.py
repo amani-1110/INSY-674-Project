@@ -1,4 +1,4 @@
-def evaluate_controller(controller, track, dt=0.1, controller_name=None):
+def evaluate_controller(controller, track, dt=0.1, controller_name=None, max_time=300.0):
     """
     Evaluate a driving controller on a racetrack.
 
@@ -15,6 +15,9 @@ def evaluate_controller(controller, track, dt=0.1, controller_name=None):
     if not math.isfinite(dt) or not 0 < dt <= 1:
         raise ValueError("dt must be finite and between 0 and 1 second")
 
+    if not math.isfinite(max_time) or max_time <= 0:
+        raise ValueError("max_time must be finite and positive")
+
     # These will be updated during the simulation.
     lap_time = 0.0
     distance_travelled = 0.0
@@ -28,18 +31,21 @@ def evaluate_controller(controller, track, dt=0.1, controller_name=None):
     # Start a new simulation on the selected track
     state, race_info = reset_simulation(track)
 
-    # Set a maximum evaluation time of 5 minutes
-    max_time = 300.0
+    # A bounded attempt reports failure rather than running forever.
 
-    while lap_time + dt / 2 < max_time and not completed_lap:
+    while lap_time < max_time - 1e-9 and not completed_lap:
         # Get information about the car and track
-        observation = get_observation(state, track)
+        observer = getattr(controller, "observe", None)
+        observation = (observer(state, track) if observer is not None else
+                       get_observation(state, track,
+                           lookahead_offsets=getattr(controller, "lookahead_offsets", None)))
 
         # Ask the controller to make a driving decision
         action = controller(observation)
 
         # Move the car forward one simulation step
-        new_state, race_info = simulate_step(state, action, dt, track)
+        step_dt = min(dt, max_time - lap_time)
+        new_state, race_info = simulate_step(state, action, step_dt, track)
 
         if race_info.get("lap_complete", False):
             completed_lap = True
@@ -58,19 +64,22 @@ def evaluate_controller(controller, track, dt=0.1, controller_name=None):
         distance_travelled += step_distance
 
         # Update elapsed time
-        lap_time += dt
+        lap_time += step_dt
 
         # Save the updated state
         state = new_state
 
     # Return the driver's performance results
-    return calculate_metrics(
+    result = calculate_metrics(
     elapsed_time=lap_time,
     distance_travelled=distance_travelled,
     off_track_events=off_track_events,
     completed_lap=completed_lap,
     controller_name=controller_name
 )
+    result.update(elapsed_time=lap_time, valid_lap=completed_lap and off_track_events == 0,
+                  termination="lap_complete" if completed_lap else "timeout")
+    return result
 
 def calculate_metrics(
     elapsed_time,

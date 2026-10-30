@@ -1,0 +1,25 @@
+{
+  "track": "monza",
+  "dt": 0.05,
+  "max_time": 600.0,
+  "model_sha256": "feb4b8304f06a0d03479623dae3dc209647dc5400852b6e0ace0c433cb0c3af4",
+  "training_circuits": [
+    "monza"
+  ],
+  "unseen_to_training": false,
+  "helpers_disabled_and_guarded": true,
+  "runtime_speed_planner": false,
+  "runtime_rule_steering": false,
+  "runtime_launch_rule": false,
+  "training_method": "full-action behavior cloning",
+  "result": {
+    "lap_time": 208.90000000001325,
+    "distance_travelled": 5799.82978097509,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "full_action_learned",
+    "elapsed_time": 208.90000000001325,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  }
+}

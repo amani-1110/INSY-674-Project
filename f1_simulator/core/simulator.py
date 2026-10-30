@@ -35,8 +35,10 @@ def simulate_step(state, action, dt, track):
     _session['was_off'] = info['off_track']
     return new, info
 
-def get_observation(state, track):
+def get_observation(state, track, lookahead_offsets=None):
+    if lookahead_offsets is None:
+        lookahead_offsets = (0., 10., 20.)
     s, offset = track.project(state['x'], state['y'])
     error = (state['heading'] - track.heading(s) + math.pi) % (2 * math.pi) - math.pi
-    return dict(speed=float(state['speed']), lateral_offset=float(offset), heading_error=float(error), curvature_ahead=[float(track.curvature(s + d)) for d in (0, 10, 20)])
+    return dict(speed=float(state['speed']), lateral_offset=float(offset), heading_error=float(error), curvature_ahead=[float(track.curvature(s + d)) for d in lookahead_offsets])
 

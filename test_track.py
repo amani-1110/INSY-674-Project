@@ -179,3 +179,33 @@ def test_reversed_real_track_keeps_physical_widths(monza):
         assert backward.position(s) == pytest.approx(monza.position(-s), abs=1e-6)
         assert backward.left_width(s) == pytest.approx(monza.right_width(-s), abs=1e-6)
         assert backward.boundaries(s)[0] == pytest.approx(monza.boundaries(-s)[1], abs=1e-6)
+
+
+@pytest.fixture(scope="module")
+def silverstone():
+    return Track("silverstone")
+
+
+def test_silverstone_source_geometry_and_periodicity(silverstone):
+    import hashlib,json
+    from pathlib import Path
+    folder=Path(__file__).parent/"data"
+    source=json.loads((folder/"silverstone.source.json").read_text())
+    assert hashlib.sha256((folder/"silverstone.csv").read_bytes()).hexdigest() == source["sha256"]
+    assert source["source_path"] == "tracks/Silverstone.csv"
+    assert silverstone.length > 5000
+    assert silverstone.position(0) == pytest.approx(silverstone.position(silverstone.length))
+    for s in np.linspace(0,silverstone.length,100,endpoint=False):
+        assert np.isfinite([*silverstone.position(s),silverstone.curvature(s)]).all()
+        assert silverstone.left_width(s)>0 and silverstone.right_width(s)>0
+
+
+@pytest.mark.parametrize("fraction",[0.,.25,.5,.9])
+def test_silverstone_projection_recovers_signed_offsets(silverstone,fraction):
+    s=fraction*silverstone.length
+    c=np.array(silverstone.position(s));h=silverstone.heading(s)
+    normal=np.array([-np.sin(h),np.cos(h)])
+    for offset in [-1.,0.,1.]:
+        recovered,lateral=silverstone.project(*(c+offset*normal))
+        assert abs(circular_error(recovered,s,silverstone.length))<1e-5
+        assert lateral == pytest.approx(offset,abs=1e-6)

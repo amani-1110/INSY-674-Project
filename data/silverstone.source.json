@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/TUMFTM/racetrack-database",
+  "commit": "e59595d1f3573b30d1ded6a08984935b957688e0",
+  "source_path": "tracks/Silverstone.csv",
+  "sha256": "27c51454e81780a75c353d3e6c9f73dbbcd1e82139782e95bd722ade19736e39",
+  "license": "LGPL-3.0; see TUM_LICENSE",
+  "modifications": "None; upstream bytes preserved"
+}

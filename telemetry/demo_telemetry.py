@@ -5,7 +5,10 @@ import hashlib
 import json
 from pathlib import Path
 
-from telemetry import FIELDS, validate_records
+if __package__:
+    from .telemetry import FIELDS, validate_records
+else:
+    from telemetry import FIELDS, validate_records
 
 DATA = Path(__file__).resolve().parent / "data" / "monza_three_new_laps"
 

@@ -1,0 +1,101 @@
+{
+  "gifs": [
+    {
+      "file": "monza_first_departure_1x.gif",
+      "frames": 31,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "monza_full_action_lap_10x.gif",
+      "frames": 106,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "monza_full_action_turn_1x.gif",
+      "frames": 61,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "monza_full_lap_10x.gif",
+      "frames": 104,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "monza_same_turn_with_planner_1x.gif",
+      "frames": 61,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "monza_turn_1_1x.gif",
+      "frames": 81,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "monza_turn_2_1x.gif",
+      "frames": 81,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "silverstone_full_action_lap_10x.gif",
+      "frames": 135,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "silverstone_full_action_turn_1x.gif",
+      "frames": 61,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "silverstone_full_lap_10x.gif",
+      "frames": 130,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "silverstone_turn_1_1x.gif",
+      "frames": 81,
+      "size": [
+        880,
+        600
+      ]
+    },
+    {
+      "file": "silverstone_turn_2_1x.gif",
+      "frames": 81,
+      "size": [
+        880,
+        600
+      ]
+    }
+  ],
+  "full_action_model_verified": "feb4b8304f06a0d03479623dae3dc209647dc5400852b6e0ace0c433cb0c3af4"
+}

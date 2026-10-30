@@ -1,0 +1,57 @@
+{
+  "dt": 0.1,
+  "max_time": 600.0,
+  "horizon_m": 500,
+  "training_circuit": "monza",
+  "test_circuit": "silverstone",
+  "unseen_to_model": true,
+  "model_retrained": false,
+  "track_source": {
+    "repository": "https://github.com/TUMFTM/racetrack-database",
+    "commit": "e59595d1f3573b30d1ded6a08984935b957688e0",
+    "source_path": "tracks/Silverstone.csv",
+    "sha256": "27c51454e81780a75c353d3e6c9f73dbbcd1e82139782e95bd722ade19736e39",
+    "license": "LGPL-3.0; see TUM_LICENSE",
+    "modifications": "None; upstream bytes preserved"
+  },
+  "track_length_m": 5887.369015782299,
+  "model_unchanged_during_test": true,
+  "source_code_sha256": {
+    "data_eval/speed_planner.py": "57e7e236166748cfb873dbd059047053744de14a34ef4cdbae52f83d54778ec0",
+    "data_eval/baseline.py": "1afda798c631935fc91a0cc01a5930778204d8d2a8f36cdb637bb55518a903ec",
+    "data_eval/ai_controller.py": "a01eca7d0da48d40a90cd0c5faa6d2342c181d13bc1f352221f9eb3b282edd94",
+    "physics/physics.py": "84ad623c314c6dc2c0b6f3c35cbbc548ad2f251db7e8adc8632df73636214578"
+  },
+  "model_sha256": "993019829234a6fe18dd07d2b543f6f564cb51d596c10f55c7c1dd774155a617",
+  "planner": {
+    "horizon_m": 500.0,
+    "sample_spacing_m": 5.0,
+    "max_speed_mps": 45.0,
+    "lateral_accel_mps2": 4.0,
+    "braking_decel_mps2": 5.0,
+    "braking_buffer_m": 15.0
+  },
+  "steering_unchanged": true,
+  "only_difference": "learned pedal proposals versus neutral proposals before the same speed-tracking rules",
+  "planner_only": {
+    "lap_time": 258.29999999999023,
+    "distance_travelled": 5904.485818340687,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "planner_only",
+    "elapsed_time": 258.29999999999023,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  },
+  "hybrid": {
+    "lap_time": 256.4999999999898,
+    "distance_travelled": 5905.068339132279,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "hybrid",
+    "elapsed_time": 256.4999999999898,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  },
+  "valid_hybrid_time_gain_s": 1.8000000000004093
+}
