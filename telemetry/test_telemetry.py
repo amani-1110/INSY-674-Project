@@ -8,7 +8,10 @@ from unittest.mock import patch
 import pandas as pd
 from fastf1.core import Lap, Laps
 
-import telemetry as module
+if __package__:
+    from . import telemetry as module
+else:
+    import telemetry as module
 
 
 class TelemetryChecks(unittest.TestCase):

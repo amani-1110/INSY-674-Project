@@ -1,4 +1,4 @@
-from baseline import baseline_action
+from data_eval.baseline import baseline_action
 from physics import update_car
 
 # 1. Set the car's starting position and speed

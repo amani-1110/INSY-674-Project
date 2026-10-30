@@ -1,4 +1,4 @@
-from baseline import baseline_action
+from data_eval.baseline import baseline_action
 
 
 def make_ai_controller(model, predict_action):

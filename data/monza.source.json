@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/TUMFTM/racetrack-database",
+  "commit": "e59595d1f3573b30d1ded6a08984935b957688e0",
+  "source_path": "tracks/Monza.csv",
+  "sha256": "4b5993986e67950df1b89efa03a4df02127f07b7213985917f0bad27ad3d48b6",
+  "license": "LGPL-3.0; see TUM_LICENSE",
+  "modifications": "None; upstream bytes preserved"
+}

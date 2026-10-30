@@ -1,4 +1,4 @@
-from baseline import baseline_action
+from data_eval.baseline import baseline_action
 
 
 def test_straight():

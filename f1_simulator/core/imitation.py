@@ -161,3 +161,8 @@ def validate_by_lap(aligned_laps: list[dict], track, n_splits: int = 5) -> dict:
         "mean": {k: float(np.mean([r[k] for r in rows])) for k in keys},
         "folds": rows,
     }
+
+
+# Shared handoff contract names; retain existing callers.
+train_model = train
+predict_action = predict

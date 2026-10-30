@@ -6,6 +6,12 @@ from .ui.renderer import render, close_renderer, set_car
 from .ui.car_selection import choose_car
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="Drive on a spline track")
+    parser.add_argument("--track", default="monza", help="Bundled circuit or demo")
+    parser.add_argument("--track-csv", help="Custom centerline and widths CSV")
+    args = parser.parse_args()
+    track = Track.from_csv(args.track_csv) if args.track_csv else Track(args.track)
     pygame.init()
     screen = pygame.display.set_mode((1100, 750))
     pygame.display.set_caption('F1 AI Simulator - Car Selection')
@@ -14,7 +20,6 @@ def main():
         pygame.quit()
         return
     set_car(selection)
-    track = Track()
     state, info = reset_simulation(track)
     clock = pygame.time.Clock()
     running = True

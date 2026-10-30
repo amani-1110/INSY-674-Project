@@ -11,6 +11,10 @@ def evaluate_controller(controller, track, dt=0.1, controller_name=None):
         Dictionary containing the driver's performance.
     """
 
+    import math
+    if not math.isfinite(dt) or not 0 < dt <= 1:
+        raise ValueError("dt must be finite and between 0 and 1 second")
+
     # These will be updated during the simulation.
     lap_time = 0.0
     distance_travelled = 0.0
@@ -19,7 +23,7 @@ def evaluate_controller(controller, track, dt=0.1, controller_name=None):
     was_off_track = False
 
  # Import the simulator functions
-    from simulator import reset_simulation, simulate_step, get_observation
+    from f1_simulator.core.simulator import reset_simulation, simulate_step, get_observation
 
     # Start a new simulation on the selected track
     state, race_info = reset_simulation(track)
