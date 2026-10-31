@@ -1,0 +1,147 @@
+{
+  "training_laps": [
+    5,
+    11
+  ],
+  "independent_training_groups": 2,
+  "folds": 2,
+  "validation_protocol": "GroupKFold by complete lap; each fold refits the coordinate transform using training-lap positions only",
+  "prior_calibration caveat": "The original saved aligned outputs used lap 5 for a shared transform; this experiment recomputes transforms inside each fold.",
+  "lap_14": "Excluded: repeatedly inspected during development; not an untouched telemetry test",
+  "throttle": [
+    {
+      "model": "Dummy mean",
+      "mae_mean": 0.3014575591084541,
+      "mae_std": 0.0005764305540115939,
+      "rmse_mean": 0.3741259627883091,
+      "rmse_std": 0.0021547375508247364,
+      "r2_mean": -0.0005298473375587864,
+      "r2_std": 6.106327815452753e-06
+    },
+    {
+      "model": "Ridge",
+      "mae_mean": 0.20426754455142515,
+      "mae_std": 0.005824790433763523,
+      "rmse_mean": 0.2931078563891243,
+      "rmse_std": 0.0028838321673677787,
+      "r2_mean": 0.3857556710815559,
+      "r2_std": 0.019163084507574094
+    },
+    {
+      "model": "Random Forest",
+      "mae_mean": 0.055285525586712375,
+      "mae_std": 0.0029239186779313653,
+      "rmse_mean": 0.12104979034020055,
+      "rmse_std": 0.003820849230857462,
+      "r2_mean": 0.895162120743089,
+      "r2_std": 0.007820349642022228
+    },
+    {
+      "model": "HistGradientBoosting",
+      "mae_mean": 0.038944689719923625,
+      "mae_std": 0.0023173770879678954,
+      "rmse_mean": 0.09259086114444864,
+      "rmse_std": 0.006806406094866127,
+      "r2_mean": 0.9384977725571503,
+      "r2_std": 0.009718344529384807
+    },
+    {
+      "model": "SVR",
+      "mae_mean": 0.05639673124522323,
+      "mae_std": 0.002432119367626999,
+      "rmse_mean": 0.11679417069533807,
+      "rmse_std": 0.0011339027780281603,
+      "r2_mean": 0.9024942591112224,
+      "r2_std": 0.000769553107734567
+    },
+    {
+      "model": "MLP",
+      "mae_mean": 0.058849772080878625,
+      "mae_std": 0.0017372453408699817,
+      "rmse_mean": 0.12744191210046046,
+      "rmse_std": 0.00634575187120913,
+      "r2_mean": 0.8838204721471027,
+      "r2_std": 0.010222521725018323
+    }
+  ],
+  "brake": [
+    {
+      "model": "Dummy most-frequent",
+      "precision_mean": 0.0,
+      "precision_std": 0.0,
+      "recall_mean": 0.0,
+      "recall_std": 0.0,
+      "f1_mean": 0.0,
+      "f1_std": 0.0,
+      "balanced_accuracy_mean": 0.5,
+      "balanced_accuracy_std": 0.0
+    },
+    {
+      "model": "Logistic Regression",
+      "precision_mean": 0.31043956043956045,
+      "precision_std": 0.0038852020944315662,
+      "recall_mean": 0.7434632034632035,
+      "recall_std": 0.004530381108900831,
+      "f1_mean": 0.437976052762045,
+      "f1_std": 0.003080704994427819,
+      "balanced_accuracy_mean": 0.7497689107664628,
+      "balanced_accuracy_std": 0.0020808728613626068
+    },
+    {
+      "model": "Random Forest",
+      "precision_mean": 0.8481012658227848,
+      "precision_std": 0.0,
+      "recall_mean": 0.8817316017316017,
+      "recall_std": 0.01640732617818138,
+      "f1_mean": 0.8645521145521144,
+      "f1_std": 0.007888137585664085,
+      "balanced_accuracy_mean": 0.9292038941610545,
+      "balanced_accuracy_std": 0.008251745965548387
+    },
+    {
+      "model": "Gradient Boosting",
+      "precision_mean": 0.8526334776334776,
+      "precision_std": 0.011989184240897522,
+      "recall_mean": 0.835930735930736,
+      "recall_std": 0.0434671700989133,
+      "f1_mean": 0.843738961497704,
+      "f1_std": 0.016297674840134998,
+      "balanced_accuracy_mean": 0.9072781201300173,
+      "balanced_accuracy_std": 0.020403292134127705
+    },
+    {
+      "model": "SVC",
+      "precision_mean": 0.7431776834445118,
+      "precision_std": 0.03044547086976638,
+      "recall_mean": 0.8887445887445887,
+      "recall_std": 0.0630580073265926,
+      "f1_mean": 0.8082113120872811,
+      "f1_std": 0.008120663579518236,
+      "balanced_accuracy_mean": 0.9215443103295,
+      "balanced_accuracy_std": 0.02681287486407282
+    },
+    {
+      "model": "MLP",
+      "precision_mean": 1.0,
+      "precision_std": 0.0,
+      "recall_mean": 0.05264069264069264,
+      "recall_std": 0.0009795418613839596,
+      "f1_mean": 0.10001562744178777,
+      "f1_std": 0.0017680432097178852,
+      "balanced_accuracy_mean": 0.5263203463203463,
+      "balanced_accuracy_std": 0.0004897709306919393
+    }
+  ],
+  "random_forest_brake_confusion_matrix": [
+    [
+      1005,
+      24
+    ],
+    [
+      18,
+      134
+    ]
+  ],
+  "convergence_warnings": 0,
+  "screening": "Model comparison is exploratory due to only two independent training laps; fold dispersion is not a population confidence interval."
+}

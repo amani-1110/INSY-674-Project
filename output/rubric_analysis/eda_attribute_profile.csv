@@ -1,0 +1,8 @@
+attribute,dtype,unit,role,missing_count,missing_percent,unique_values,minimum,median,maximum,std
+time,float64,s,timestamp/grouped,0,0.0,1751,0.0,39.870999999999995,79.455,22.909519744793965
+x,float64,source-frame m,source coordinate,0,0.0,1704,-150.0,156.08156062782547,1106.7,404.3951252975343
+y,float64,source-frame m,source coordinate,0,0.0,1754,-581.1880296576123,833.8131264307094,1588.3674811945746,662.2402852369318
+speed,float64,m/s,feature,0,0.0,1022,20.27777777777778,77.5,96.66666666666666,19.686509251324672
+throttle,float64,fraction 0-1,regression target,0,0.0,221,0.0,1.0,1.0,0.371173862390251
+brake,float64,binary 0/1,classification target,0,0.0,2,0.0,0.0,1.0,0.33663384487781234
+lap_id,int64,lap ID,split group,0,0.0,3,5.0,11.0,14.0,3.7421777589550183

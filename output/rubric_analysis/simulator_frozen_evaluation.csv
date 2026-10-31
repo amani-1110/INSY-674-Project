@@ -1,0 +1,7 @@
+system,lap_time_s,completed_lap,valid_lap,off_track_events
+Planner only,287.39999999999685,True,True,0
+Random Forest,281.9999999999956,True,True,0
+Support vector,281.8999999999956,True,True,0
+Neural network,276.79999999999444,True,True,0
+Equal RF and SVR ensemble,281.19999999999544,True,True,0
+Frozen full-action driver,294.2999999999984,True,True,0

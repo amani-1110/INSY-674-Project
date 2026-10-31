@@ -1,0 +1,279 @@
+{
+  "method": "Seeded randomized candidate sampling; manually scored on fold-specific GroupKFold fits",
+  "seed": 674,
+  "n_iter_per_target": 6,
+  "training_laps": [
+    5,
+    11
+  ],
+  "folds": 2,
+  "selection_metrics": {
+    "throttle": "minimum mean MAE",
+    "brake": "maximum mean positive-class F1"
+  },
+  "untuned_baselines": {
+    "throttle_hist_gradient_boosting": {
+      "fold_scores": [
+        0.040583322773392064,
+        0.037306056666455194
+      ],
+      "mean_score": 0.038944689719923625,
+      "std_score": 0.0023173770879678975,
+      "elapsed_seconds": 0.7287655000000086
+    },
+    "brake_random_forest": {
+      "fold_scores": [
+        0.8701298701298701,
+        0.8589743589743589
+      ],
+      "mean_score": 0.8645521145521144,
+      "std_score": 0.007888137585664123,
+      "elapsed_seconds": 1.490516399999251
+    }
+  },
+  "final_test_used": false,
+  "candidates": {
+    "throttle_hist_gradient_boosting": [
+      {
+        "candidate": 1,
+        "parameters": {
+          "estimator__min_samples_leaf": 30,
+          "estimator__max_leaf_nodes": 31,
+          "estimator__max_iter": 60,
+          "estimator__learning_rate": 0.1,
+          "estimator__l2_regularization": 1.0
+        },
+        "fold_scores": [
+          0.051671884512500314,
+          0.0494488639781125
+        ],
+        "mean_score": 0.050560374245306405,
+        "std_score": 0.0015719128945825638,
+        "elapsed_seconds": 0.37625610000031884
+      },
+      {
+        "candidate": 2,
+        "parameters": {
+          "estimator__min_samples_leaf": 20,
+          "estimator__max_leaf_nodes": 45,
+          "estimator__max_iter": 160,
+          "estimator__learning_rate": 0.15,
+          "estimator__l2_regularization": 1.0
+        },
+        "fold_scores": [
+          0.03798309866582687,
+          0.036745145133999374
+        ],
+        "mean_score": 0.03736412189991312,
+        "std_score": 0.0008753653371490608,
+        "elapsed_seconds": 1.3417572999987897
+      },
+      {
+        "candidate": 3,
+        "parameters": {
+          "estimator__min_samples_leaf": 20,
+          "estimator__max_leaf_nodes": 31,
+          "estimator__max_iter": 60,
+          "estimator__learning_rate": 0.1,
+          "estimator__l2_regularization": 0.0
+        },
+        "fold_scores": [
+          0.0440056017661777,
+          0.0416296441700106
+        ],
+        "mean_score": 0.04281762296809415,
+        "std_score": 0.0016800557280614449,
+        "elapsed_seconds": 0.4850561999992351
+      },
+      {
+        "candidate": 4,
+        "parameters": {
+          "estimator__min_samples_leaf": 20,
+          "estimator__max_leaf_nodes": 15,
+          "estimator__max_iter": 60,
+          "estimator__learning_rate": 0.15,
+          "estimator__l2_regularization": 0.0
+        },
+        "fold_scores": [
+          0.041091439856725025,
+          0.039987654052724614
+        ],
+        "mean_score": 0.04053954695472482,
+        "std_score": 0.000780494426986136,
+        "elapsed_seconds": 0.3692085999991832
+      },
+      {
+        "candidate": 5,
+        "parameters": {
+          "estimator__min_samples_leaf": 20,
+          "estimator__max_leaf_nodes": 31,
+          "estimator__max_iter": 100,
+          "estimator__learning_rate": 0.1,
+          "estimator__l2_regularization": 0.0
+        },
+        "fold_scores": [
+          0.040583322773392064,
+          0.037306056666455194
+        ],
+        "mean_score": 0.038944689719923625,
+        "std_score": 0.0023173770879678975,
+        "elapsed_seconds": 0.7563937000013539
+      },
+      {
+        "candidate": 6,
+        "parameters": {
+          "estimator__min_samples_leaf": 30,
+          "estimator__max_leaf_nodes": 31,
+          "estimator__max_iter": 100,
+          "estimator__learning_rate": 0.1,
+          "estimator__l2_regularization": 1.0
+        },
+        "fold_scores": [
+          0.04355197705509698,
+          0.04139208002509186
+        ],
+        "mean_score": 0.04247202854009442,
+        "std_score": 0.0015272778365813071,
+        "elapsed_seconds": 0.5419218000006367
+      }
+    ],
+    "brake_random_forest": [
+      {
+        "candidate": 1,
+        "parameters": {
+          "estimator__n_estimators": 240,
+          "estimator__min_samples_leaf": 8,
+          "estimator__max_features": "sqrt",
+          "estimator__max_depth": 16
+        },
+        "fold_scores": [
+          0.8536585365853658,
+          0.7901234567901234
+        ],
+        "mean_score": 0.8218909966877446,
+        "std_score": 0.04492608576644432,
+        "elapsed_seconds": 2.1390479000001505
+      },
+      {
+        "candidate": 2,
+        "parameters": {
+          "estimator__n_estimators": 240,
+          "estimator__min_samples_leaf": 4,
+          "estimator__max_features": "sqrt",
+          "estimator__max_depth": 12
+        },
+        "fold_scores": [
+          0.8701298701298701,
+          0.8571428571428571
+        ],
+        "mean_score": 0.8636363636363635,
+        "std_score": 0.009183204950474647,
+        "elapsed_seconds": 2.2130919999999605
+      },
+      {
+        "candidate": 3,
+        "parameters": {
+          "estimator__n_estimators": 160,
+          "estimator__min_samples_leaf": 8,
+          "estimator__max_features": 0.75,
+          "estimator__max_depth": 8
+        },
+        "fold_scores": [
+          0.8375,
+          0.8242424242424242
+        ],
+        "mean_score": 0.8308712121212121,
+        "std_score": 0.00937452172027623,
+        "elapsed_seconds": 2.714321100000234
+      },
+      {
+        "candidate": 4,
+        "parameters": {
+          "estimator__n_estimators": 240,
+          "estimator__min_samples_leaf": 2,
+          "estimator__max_features": "sqrt",
+          "estimator__max_depth": 8
+        },
+        "fold_scores": [
+          0.847682119205298,
+          0.8322147651006712
+        ],
+        "mean_score": 0.8399484421529846,
+        "std_score": 0.010937070974395226,
+        "elapsed_seconds": 2.450247799999488
+      },
+      {
+        "candidate": 5,
+        "parameters": {
+          "estimator__n_estimators": 240,
+          "estimator__min_samples_leaf": 4,
+          "estimator__max_features": 0.75,
+          "estimator__max_depth": 16
+        },
+        "fold_scores": [
+          0.8441558441558441,
+          0.8571428571428571
+        ],
+        "mean_score": 0.8506493506493507,
+        "std_score": 0.009183204950474647,
+        "elapsed_seconds": 4.6214500999994925
+      },
+      {
+        "candidate": 6,
+        "parameters": {
+          "estimator__n_estimators": 240,
+          "estimator__min_samples_leaf": 2,
+          "estimator__max_features": 0.75,
+          "estimator__max_depth": 8
+        },
+        "fold_scores": [
+          0.8552631578947368,
+          0.8322147651006712
+        ],
+        "mean_score": 0.843738961497704,
+        "std_score": 0.016297674840134998,
+        "elapsed_seconds": 14.377690499999517
+      }
+    ]
+  },
+  "best": {
+    "throttle": {
+      "candidate": 2,
+      "parameters": {
+        "estimator__min_samples_leaf": 20,
+        "estimator__max_leaf_nodes": 45,
+        "estimator__max_iter": 160,
+        "estimator__learning_rate": 0.15,
+        "estimator__l2_regularization": 1.0
+      },
+      "fold_scores": [
+        0.03798309866582687,
+        0.036745145133999374
+      ],
+      "mean_score": 0.03736412189991312,
+      "std_score": 0.0008753653371490608,
+      "elapsed_seconds": 1.3417572999987897
+    },
+    "brake": {
+      "candidate": 2,
+      "parameters": {
+        "estimator__n_estimators": 240,
+        "estimator__min_samples_leaf": 4,
+        "estimator__max_features": "sqrt",
+        "estimator__max_depth": 12
+      },
+      "fold_scores": [
+        0.8701298701298701,
+        0.8571428571428571
+      ],
+      "mean_score": 0.8636363636363635,
+      "std_score": 0.009183204950474647,
+      "elapsed_seconds": 2.2130919999999605
+    }
+  },
+  "tuned_vs_untuned": {
+    "throttle_mae_reduction": 0.001580567820010502,
+    "brake_f1_change": -0.0009157509157509125
+  },
+  "limitation": "Two independent laps give only two validation folds; tuned scores are model-selection estimates, not an independent test result."
+}
