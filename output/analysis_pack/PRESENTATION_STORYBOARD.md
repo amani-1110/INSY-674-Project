@@ -1,22 +1,25 @@
-# Ten-minute presentation storyboard
+# Presentation plan · 9 minutes 30 seconds
 
-Use one claim per slide and one short GIF at a time. Do not play entire laps
-while explaining a dense table. Keep the numerical results visible after a clip.
+Use the same eight sections as the visual document. One takeaway per slide; leave 30 seconds as a buffer. Use one master table throughout: highlight the relevant rows or circuit column instead of introducing more tables.
 
-| Time | Slide / spoken point | Visual |
-|---|---|---|
-| 0:00-0:45 | Research question: can learned pedals improve valid driving and transfer? | Two track maps, Figure 01 |
-| 0:45-1:45 | Three laps are not three independent sessions; 73 km/h minimum versus rest start | EDA Figure 04 |
-| 1:45-2:30 | Telemetry -> alignment -> features -> pedals -> steering/planner -> simulator | One process diagram; existing alignment overlay as backup |
-| 2:30-3:30 | Compare model families with whole laps held out | CV Figure 08; state two folds and mean +/- SD |
-| 3:30-4:30 | Accurate pedal predictions do not guarantee a clean lap | Figure 07 then the first-departure GIF |
-| 4:30-5:30 | Longer lookahead alone failed; mutually conflicting pedals exposed a control mismatch | Horizon Figure 03; distinguish raw and corrected policies |
-| 5:30-6:30 | A rule-based speed envelope makes the hybrid complete clean turns | Same-location planned GIF; speed/target Figure 09 |
-| 6:30-7:30 | Does AI contribute beyond the planner? A matched ablation | Monza half of Figure 02 |
-| 7:30-8:30 | Transfer to Silverstone without retraining or planner tuning | Silverstone turn GIF and the other half of Figure 02 |
-| 8:30-9:30 | What is hand-written, what is learned, and what remains untested | Four concise limitations from ANALYSIS.md |
-| 9:30-10:00 | Takeaway: planner enables clean laps; learned pedals add a small measured benefit | Valid-lap results table; no new claims |
+| Time | Slide headline | Visual | Speaker cue |
+|---|---|---|---|
+| 0:00–0:45 | Can a learned driver finish a clean lap? | Track map: figures/01_track_maps.png | Open with the question and explain what counts as success. |
+| 0:45–2:30 | One table: three stages and supporting comparisons | Master comparison table: highlight the three stage rows | Explain each card. Stage 1 still has steering and pedal rules; stage 3 uses different examples and models. |
+| 2:30–3:30 | The examples did not cover every driving situation | figures/04_data_distributions.png | Explain the data gap before introducing any model terminology. |
+| 3:30–4:30 | Keep whole laps separate | Telemetry → alignment → road features → learned controls → simulator | Introduce grouped cross-validation only after explaining the whole-lap split. |
+| 4:30–5:45 | Test settings—and test a combined model | Master table: highlight the four tuned candidates | MAE means average prediction error. These two-fold selection scores are not final-test accuracy. |
+| 5:45–6:45 | Check whether the learned pedals actually help | Two paired results; figures/02_valid_lap_ablation.png | These are historical original-model comparisons, separate from the later tuned-model Spa test. |
+| 6:45–8:15 | Freeze the models, then test a new circuit | Master table: highlight the Spa column | All results are reported. The neural hybrid is faster despite worse prediction errors; do not reselect the model from final-test results. |
+| 8:15–9:30 | What we learned—and where it stops | One closing takeaway with three short limitations | Close with the result. Keep the remaining 30 seconds as a timing buffer. |
 
-Backup: full-lap 10x GIFs, feature importance/correlations, per-fold CSVs,
-source hashes and timestep sensitivity results. Hyperparameter tuning and an
-explicit ensemble comparison remain work to complete, not results to invent.
+## Backup slides only
+
+- Full attribute profile and labelled data distributions; correlations and feature importance stay in the evidence appendix. No heatmap is needed in the main presentation.
+- Model settings, all 18 trials, mean ± fold standard deviation, convergence checks.
+- Original failed preview-distance experiments and pedal-conflict diagnosis.
+- All six Spa results, frozen hashes and protocol; timestep sensitivity.
+
+Use the visual document’s “Build slide” controls for speaker cues. Keep code paths and settings in backup material, not the main spoken story.
+
+Technical definitions: supervised learning = learning from labelled examples; grouped cross-validation = checking on whole laps excluded from fitting; MAE = average size of a prediction error; expert imitation = copying a teacher’s decisions.

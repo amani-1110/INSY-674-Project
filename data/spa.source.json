@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/TUMFTM/racetrack-database",
+  "commit": "e59595d1f3573b30d1ded6a08984935b957688e0",
+  "source_path": "tracks/Spa.csv",
+  "sha256": "952673dfa772427be8a9013b8c1cb5ff5935f85c0c21d2a223adb04c6d640c8a",
+  "license": "LGPL-3.0; see TUM_LICENSE",
+  "modifications": "None; upstream bytes preserved"
+}

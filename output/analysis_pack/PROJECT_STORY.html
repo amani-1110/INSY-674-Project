@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>F1 simulator · Project story</title><style>
+*{box-sizing:border-box}body{font:16px/1.55 system-ui;background:#f3f5f7;color:#1d2d3e;margin:0;padding:32px}main{max-width:1240px;margin:auto}header{padding:22px 0 30px}h1{font-size:44px;line-height:1.12;margin:12px 0}h2{font-size:28px;line-height:1.2;margin:6px 0 20px}h3{line-height:1.25}a{color:#235f88}section{margin:0 0 24px;padding:26px;background:white;border:1px solid #dce2e8;border-radius:12px}.eyebrow{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.10em;color:#536b7f}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.card{padding:18px;border:1px solid #dce2e8;border-radius:12px;background:#f8fafb}.card img{width:100%;height:auto;border-radius:6px}.metric{font-size:29px;font-weight:750;margin-top:12px}.valid{color:#17664f;font-weight:650}.invalid{color:#ad302a;font-weight:650}.takeaway{padding:14px 18px;background:#edf2f6;border-left:4px solid #235f88;border-radius:4px;margin-top:20px;font-weight:650}ul{padding-left:22px}li{margin:8px 0}table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px}th,td{padding:12px;text-align:left;border-bottom:1px solid #dce2e8}th{background:#edf2f6}.small{font-size:13px;color:#536b7f}details{margin-top:14px}summary{cursor:pointer;font-weight:650}.tag{display:inline-block;background:#edf2f6;padding:4px 10px;border-radius:20px;margin-right:8px;font-size:13px}.tablewrap{overflow-x:auto}@media(max-width:850px){.grid{grid-template-columns:1fr}body{padding:16px}h1{font-size:34px}}@media print{@page{size:A4;margin:14mm}body{padding:0;background:white;font-size:10pt}header{padding:0 0 12px}h1{font-size:28pt}h2{font-size:18pt}section{padding:15px;break-inside:avoid;margin-bottom:14px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.card{padding:9px}.card h3{font-size:12pt}.card p{font-size:9pt}.metric{font-size:18pt}details{display:none}a{color:inherit}table{font-size:9pt}th,td{padding:7px}}
+
+</style></head><body><main><header><div class="eyebrow">INSY 674 · Project documentation</div><h1>From recorded pedals<br>to a learned driver.</h1><p>A clean lap first. A faster valid lap second.</p><a href="https://github.com/amani-1110/INSY-674-Project">GitHub repository</a> · <a href="PRESENTATION_STORYBOARD.md">Presentation plan</a> · <a href="../../PROJECT_EVIDENCE.md">Detailed evidence</a></header>
+<section id="section-01"><div class="eyebrow">01 · Frame the Problem and Look at the Big Picture</div><h2>Can a learned driver finish a clean lap?</h2>
+<ul>
+<li>We built a 2D racing simulator for students and researchers to compare driving approaches.</li>
+<li>Success means finishing with zero road departures. Compare speed only after a lap is valid.</li>
+</ul>
+<div class="takeaway">Clean driving comes first; speed comes second.</div><details><summary>Build slide 01 · 0:00–0:45</summary><p><b>Visual:</b> Track map: figures/01_track_maps.png</p><p>Open with the question and explain what counts as success.</p></details></section>
+<section id="section-02"><div class="eyebrow">02 · Process and insights</div><h2>One table: three stages and supporting comparisons</h2>
+<div class="tablewrap"><table><thead><tr><th>Driving configuration</th><th>Steering</th><th>Pedals</th><th>Speed planner</th><th>Monza</th><th>Silverstone</th><th>Spa</th></tr></thead><tbody>
+<tr><td>Rules only</td><td>Rule</td><td>Rule</td><td>Yes</td><td>208.7 s; clean lap</td><td>258.3 s; clean lap</td><td>287.4 s; clean lap</td></tr>
+<tr><td>Original RF, no speed planner</td><td>Rule</td><td>Original RF</td><td>No</td><td>91.8 s; 13 departures; invalid</td><td>Timeout (600 s); 5 departures; invalid</td><td>Timeout (600 s); 9 departures; invalid</td></tr>
+<tr><td>Original RF + speed planner</td><td>Rule</td><td>Original RF</td><td>Yes</td><td>205.4 s; clean lap</td><td>256.5 s; clean lap</td><td>284.6 s; clean lap</td></tr>
+<tr><td>Learned steering + pedals</td><td>Neural network</td><td>ExtraTrees</td><td>No</td><td>209.1 s; clean lap</td><td>266.3 s; clean lap</td><td>294.3 s; clean lap</td></tr>
+<tr><td>Tuned RF + planner</td><td>Rule</td><td>Tuned RF</td><td>Yes</td><td>205.5 s; clean lap</td><td>253.7 s; clean lap</td><td>282.0 s; clean lap</td></tr>
+<tr><td>Tuned SVR + planner</td><td>Rule</td><td>Tuned SVR</td><td>Yes</td><td>204.1 s; clean lap</td><td>253.6 s; clean lap</td><td>281.9 s; clean lap</td></tr>
+<tr><td>Tuned neural pedals + planner</td><td>Rule</td><td>Tuned neural net</td><td>Yes</td><td>199.1 s; clean lap</td><td>248.1 s; clean lap</td><td>276.8 s; clean lap</td></tr>
+<tr><td>50/50 RF + SVR + planner</td><td>Rule</td><td>RF + SVR blend</td><td>Yes</td><td>205.1 s; clean lap</td><td>254.7 s; clean lap</td><td>281.2 s; clean lap</td></tr>
+</tbody></table></div>
+<p class="small">All 24 attempts use the same start, physics, 0.1-second timestep and 600-second limit. Clean means completed with zero departures. This compares complete driving configurations, not isolated algorithms. The original and tuned RF fits differ; full-control imitation also changes steering and training data. These are expanded development tests on already inspected circuits. See output/all_configurations/REPORT.md for the protocol and all outcomes.</p>
+<div class="takeaway">The stages show how the system developed—not a comparison changing only assistance.</div><details><summary>Build slide 02 · 0:45–2:30</summary><p><b>Visual:</b> Master comparison table: highlight the three stage rows</p><p>Explain each card. Stage 1 still has steering and pedal rules; stage 3 uses different examples and models.</p></details></section>
+<section id="section-03"><div class="eyebrow">03 · Explore the Data</div><h2>The examples did not cover every driving situation</h2>
+<ul>
+<li>1,774 samples from three Verstappen qualifying laps at Monza; one driver and one session.</li>
+<li>The slowest recorded speed was 73 km/h, but the simulator starts at rest. Only about 13% of samples contain braking.</li>
+<li>Saved cleaned tables have no missing values; original channels were interpolated. Real measured steering labels are unavailable.</li>
+</ul>
+<div class="takeaway">Good qualifying examples do not automatically teach starts or recovery.</div><details><summary>Build slide 03 · 2:30–3:30</summary><p><b>Visual:</b> figures/04_data_distributions.png</p><p>Explain the data gap before introducing any model terminology.</p></details></section>
+<section id="section-04"><div class="eyebrow">04 · Prepare the Data</div><h2>Keep whole laps separate</h2>
+<ul>
+<li>Match driver positions to the circuit, standardize units and describe the road ahead.</li>
+<li>Use laps 5 and 11 for training. Train on one whole lap and check on the other, then swap.</li>
+<li>Keep scaling inside each training split. Lap 14 was inspected during development, so its scores are exploratory.</li>
+</ul>
+<div class="takeaway">Nearby moments from the same lap should not be mixed between training and checking.</div><details><summary>Build slide 04 · 3:30–4:30</summary><p><b>Visual:</b> Telemetry → alignment → road features → learned controls → simulator</p><p>Introduce grouped cross-validation only after explaining the whole-lap split.</p></details></section>
+<section id="section-05"><div class="eyebrow">05 · Measure and Compare Their Performance / Fine-Tune the System</div><h2>Test settings—and test a combined model</h2>
+<ul>
+<li>Screen five prediction approaches, then test 18 settings across Random Forest, support-vector and neural-network models.</li>
+<li>Compare the tuned models with a fixed 50/50 Random Forest + support-vector combination.</li>
+<li>Random Forest has the lowest selection error. The combination does not improve that error. Selection errors and fold variability are in the supporting evidence.</li>
+</ul>
+<div class="takeaway">Choose using training laps, before looking at the fresh circuit.</div><details><summary>Build slide 05 · 4:30–5:45</summary><p><b>Visual:</b> Master table: highlight the four tuned candidates</p><p>MAE means average prediction error. These two-fold selection scores are not final-test accuracy.</p></details></section>
+<section id="section-06"><div class="eyebrow">06 · Measure and Compare Their Performance</div><h2>Check whether the learned pedals actually help</h2>
+<ul>
+<li>Keep steering, planner, physics and starting conditions the same; remove only the learned pedal proposals.</li>
+<li>Monza: planner-only 208.7 s → assisted learned pedals 205.4 s.</li>
+<li>Silverstone: planner-only 258.3 s → assisted learned pedals 256.5 s. All four laps are valid.</li>
+</ul>
+<div class="takeaway">The original learned pedals add a small measured benefit beyond the shared planner.</div><details><summary>Build slide 06 · 5:45–6:45</summary><p><b>Visual:</b> Two paired results; figures/02_valid_lap_ablation.png</p><p>These are historical original-model comparisons, separate from the later tuned-model Spa test.</p></details></section>
+<section id="section-07"><div class="eyebrow">07 · Final evaluation</div><h2>Freeze the models, then test a new circuit</h2>
+<ul>
+<li>Save the models and test protocol before retrieving Spa geometry or running the test.</li>
+<li>The preselected Random Forest hybrid finishes in 282.0 s; planner-only takes 287.4 s. Both have zero departures.</li>
+<li>The separate stage-3 learned driver finishes in 294.3 s, also with zero departures. All six predefined drivers complete cleanly.</li>
+</ul>
+<div class="takeaway">The selected hybrid is 5.4 seconds faster here; the learned full-action driver also transfers cleanly.</div><details><summary>Build slide 07 · 6:45–8:15</summary><p><b>Visual:</b> Master table: highlight the Spa column</p><p>All results are reported. The neural hybrid is faster despite worse prediction errors; do not reselect the model from final-test results.</p></details></section>
+<section id="section-08"><div class="eyebrow">08 · Assumptions and Limitations</div><h2>What we learned—and where it stops</h2>
+<ul>
+<li>Matching recorded pedals and driving well are different tasks. Starts, recovery and the complete controller matter.</li>
+<li>Stage 3 learns a simulated teacher’s behaviour; it does not independently discover a racing strategy.</li>
+<li>Approximate physics, estimated track widths and reference-point road limits differ from real F1. The final test covers one deterministic starting condition.</li>
+</ul>
+<div class="takeaway">We demonstrated clean simulated driving—not real-car performance or broad reliability.</div><details><summary>Build slide 08 · 8:15–9:30</summary><p><b>Visual:</b> One closing takeaway with three short limitations</p><p>Close with the result. Keep the remaining 30 seconds as a timing buffer.</p></details></section>
+<footer class="small"><p>Evidence: <a href="../../PROJECT_EVIDENCE.md">detailed project documentation</a> · <a href="../completed_study/REPORT.md">completed study</a> · <a href="../completed_study/final_test_protocol.json">frozen test protocol</a></p><p>Print this page for a static copy. Use the Overleaf ZIP for the LaTeX version. Motion is available in the HTML clips; printed pages use still images.</p></footer></main></body></html>

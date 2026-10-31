@@ -1,0 +1,96 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=17mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,graphicx,xcolor,booktabs,hyperref,enumitem,tabularx,pdflscape}
+\usepackage[most]{tcolorbox}
+\definecolor{ink}{HTML}{1D2D3E}
+\definecolor{paperblue}{HTML}{EDF2F6}
+\hypersetup{colorlinks=true,urlcolor=blue}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,nosep,topsep=5pt}
+\raggedbottom
+\newcommand{\takeaway}[1]{\begin{tcolorbox}[colback=paperblue,colframe=paperblue,boxrule=0pt]#1\end{tcolorbox}}
+\begin{document}
+{\LARGE\bfseries From recorded pedals to a learned driver.}\par
+INSY 674 --- Concise project documentation\par
+\href{https://github.com/amani-1110/INSY-674-Project}{GitHub repository}\quad |\quad A clean lap first. A faster valid lap second.
+
+\section*{01 | Can a learned driver finish a clean lap?}
+{\small\textit{Frame the Problem and Look at the Big Picture}}
+\begin{itemize}
+\item We built a 2D racing simulator for students and researchers to compare driving approaches.
+\item Success means finishing with zero road departures. Compare speed only after a lap is valid.
+\end{itemize}
+\takeaway{\textbf{Takeaway:} Clean driving comes first; speed comes second.}
+\section*{02 | One table: three stages and supporting comparisons}
+{\small\textit{Process and insights}}
+\begin{landscape}\section*{All driving systems and model comparisons}
+\small\begin{tabularx}{\linewidth}{p{27mm}p{32mm}p{25mm}Xp{22mm}p{22mm}p{22mm}}\toprule
+Driving configuration & Steering & Pedals & Speed planner & Monza & Silverstone & Spa\\\midrule
+Rules only & Rule & Rule & Yes & 208.7 s; clean lap & 258.3 s; clean lap & 287.4 s; clean lap\\\addlinespace
+Original RF, no speed planner & Rule & Original RF & No & 91.8 s; 13 departures; invalid & Timeout (600 s); 5 departures; invalid & Timeout (600 s); 9 departures; invalid\\\addlinespace
+Original RF + speed planner & Rule & Original RF & Yes & 205.4 s; clean lap & 256.5 s; clean lap & 284.6 s; clean lap\\\addlinespace
+Learned steering + pedals & Neural network & ExtraTrees & No & 209.1 s; clean lap & 266.3 s; clean lap & 294.3 s; clean lap\\\addlinespace
+Tuned RF + planner & Rule & Tuned RF & Yes & 205.5 s; clean lap & 253.7 s; clean lap & 282.0 s; clean lap\\\addlinespace
+Tuned SVR + planner & Rule & Tuned SVR & Yes & 204.1 s; clean lap & 253.6 s; clean lap & 281.9 s; clean lap\\\addlinespace
+Tuned neural pedals + planner & Rule & Tuned neural net & Yes & 199.1 s; clean lap & 248.1 s; clean lap & 276.8 s; clean lap\\\addlinespace
+50/50 RF + SVR + planner & Rule & RF + SVR blend & Yes & 205.1 s; clean lap & 254.7 s; clean lap & 281.2 s; clean lap\\\addlinespace
+\bottomrule\end{tabularx}
+All 24 attempts use the same start, physics, 0.1-second timestep and 600-second limit. Clean means completed with zero departures. This compares complete driving configurations, not isolated algorithms. The original and tuned RF fits differ; full-control imitation also changes steering and training data. These are expanded development tests on already inspected circuits. See output/all\_configurations/REPORT.md for the protocol and all outcomes.
+\end{landscape}
+\takeaway{\textbf{Takeaway:} The stages show how the system developed--not a comparison changing only assistance.}
+\clearpage
+\section*{03 | The examples did not cover every driving situation}
+{\small\textit{Explore the Data}}
+\begin{itemize}
+\item 1,774 samples from three Verstappen qualifying laps at Monza; one driver and one session.
+\item The slowest recorded speed was 73 km/h, but the simulator starts at rest. Only about 13\% of samples contain braking.
+\item Saved cleaned tables have no missing values; original channels were interpolated. Real measured steering labels are unavailable.
+\end{itemize}
+\takeaway{\textbf{Takeaway:} Good qualifying examples do not automatically teach starts or recovery.}
+\section*{04 | Keep whole laps separate}
+{\small\textit{Prepare the Data}}
+\begin{itemize}
+\item Match driver positions to the circuit, standardize units and describe the road ahead.
+\item Use laps 5 and 11 for training. Train on one whole lap and check on the other, then swap.
+\item Keep scaling inside each training split. Lap 14 was inspected during development, so its scores are exploratory.
+\end{itemize}
+\takeaway{\textbf{Takeaway:} Nearby moments from the same lap should not be mixed between training and checking.}
+\clearpage
+\section*{05 | Test settings--and test a combined model}
+{\small\textit{Measure and Compare Their Performance / Fine-Tune the System}}
+\begin{itemize}
+\item Screen five prediction approaches, then test 18 settings across Random Forest, support-vector and neural-network models.
+\item Compare the tuned models with a fixed 50/50 Random Forest + support-vector combination.
+\item Random Forest has the lowest selection error. The combination does not improve that error. Selection errors and fold variability are in the supporting evidence.
+\end{itemize}
+\takeaway{\textbf{Takeaway:} Choose using training laps, before looking at the fresh circuit.}
+\section*{06 | Check whether the learned pedals actually help}
+{\small\textit{Measure and Compare Their Performance}}
+\begin{itemize}
+\item Keep steering, planner, physics and starting conditions the same; remove only the learned pedal proposals.
+\item Monza: planner-only 208.7 s to assisted learned pedals 205.4 s.
+\item Silverstone: planner-only 258.3 s to assisted learned pedals 256.5 s. All four laps are valid.
+\end{itemize}
+\takeaway{\textbf{Takeaway:} The original learned pedals add a small measured benefit beyond the shared planner.}
+\clearpage
+\section*{07 | Freeze the models, then test a new circuit}
+{\small\textit{Final evaluation}}
+\begin{itemize}
+\item Save the models and test protocol before retrieving Spa geometry or running the test.
+\item The preselected Random Forest hybrid finishes in 282.0 s; planner-only takes 287.4 s. Both have zero departures.
+\item The separate stage-3 learned driver finishes in 294.3 s, also with zero departures. All six predefined drivers complete cleanly.
+\end{itemize}
+\takeaway{\textbf{Takeaway:} The selected hybrid is 5.4 seconds faster here; the learned full-action driver also transfers cleanly.}
+\section*{08 | What we learned--and where it stops}
+{\small\textit{Assumptions and Limitations}}
+\begin{itemize}
+\item Matching recorded pedals and driving well are different tasks. Starts, recovery and the complete controller matter.
+\item Stage 3 learns a simulated teacher's behaviour; it does not independently discover a racing strategy.
+\item Approximate physics, estimated track widths and reference-point road limits differ from real F1. The final test covers one deterministic starting condition.
+\end{itemize}
+\takeaway{\textbf{Takeaway:} We demonstrated clean simulated driving--not real-car performance or broad reliability.}
+\section*{Evidence}
+The repository includes PROJECT\_EVIDENCE.md for detailed methods, attribute profiles, initial model comparisons, fold variability, settings, assumptions and reproduction instructions. The completed study folder contains all 18 trials, the frozen protocol and all six final results. The matching presentation plan uses these same eight sections.
+\end{document}

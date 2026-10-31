@@ -1,0 +1,9 @@
+﻿Driving configuration,Learned controls,Driving rules,Monza,Silverstone,Spa
+Rules only,Nothing,"Rule steering, speed planner, launch and pedal cleanup",208.7 s; Clean lap,258.3 s; Clean lap,287.4 s; Clean lap
+"Original RF pedals, no speed planner",Throttle and brake,"Rule steering, launch and pedal cleanup",91.8 s; 13 departures; invalid,Timeout at 600 s; 5 departures; invalid,Timeout at 600 s; 9 departures; invalid
+Original RF pedals + speed planner,Throttle and brake,"Rule steering, speed planner, launch and pedal cleanup",205.4 s; Clean lap,256.5 s; Clean lap,284.6 s; Clean lap
+Learned steering and pedals,"Steering, throttle and brake",Actuator limits only,209.1 s; Clean lap,266.3 s; Clean lap,294.3 s; Clean lap
+Tuned RF pedals + speed planner,Throttle and brake,"Rule steering, speed planner, launch and pedal cleanup",205.5 s; Clean lap,253.7 s; Clean lap,282.0 s; Clean lap
+Tuned SVR pedals + speed planner,Throttle and brake,"Rule steering, speed planner, launch and pedal cleanup",204.1 s; Clean lap,253.6 s; Clean lap,281.9 s; Clean lap
+Tuned neural pedals + speed planner,Throttle and brake,"Rule steering, speed planner, launch and pedal cleanup",199.1 s; Clean lap,248.1 s; Clean lap,276.8 s; Clean lap
+50/50 RF + SVR pedals + speed planner,Throttle and brake,"Rule steering, speed planner, launch and pedal cleanup",205.1 s; Clean lap,254.7 s; Clean lap,281.2 s; Clean lap

@@ -472,3 +472,19 @@ python update_driving_stages.py
 The three-stage report and gallery now include real full-action learned-policy
 GIFs rather than a future-work placeholder. `--policy` selects a different full
 policy artifact; it is separate from `--model`, which selects older pedal models.
+
+
+## Project documentation
+
+See [What We Built and Learned](DOCUMENTATION.md) for the plain-language project narrative, three driving stages, rubric sections, measured results, limitations and reproduction commands. The [Overleaf package](output/F1_Project_Overleaf.zip) includes the LaTeX source, print-friendly comparison cards and numbered frames for optional PDF animation.
+
+Read the [visual project story](output/analysis_pack/PROJECT_STORY.html) for the minimal card-based narrative. The [presentation plan](output/analysis_pack/PRESENTATION_STORYBOARD.md) provides section guidance and speaker cues. [Detailed evidence](PROJECT_EVIDENCE.md) is available separately. Rebuild this version with `python build_concise_documentation.py`.
+
+
+## Complete driving benchmark
+
+All eight saved driving configurations have now been run on Monza, Silverstone and Spa under matched start, physics, timestep and timeout settings. See [all 24 attempts](output/all_configurations/REPORT.md). Steering, pedal model and speed assistance are explicit; lap outcomes are separate from offline pedal-prediction error. These are expanded development tests on already inspected circuits.
+
+## Submission readiness
+
+See [rubric checklist and final presentation actions](RUBRIC_CHECKLIST.md) for the evidence, evaluation caveats and remaining submission checks.

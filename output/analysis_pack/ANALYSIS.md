@@ -16,7 +16,7 @@ not fully unassisted AI driving.
 
 **Track: Monza**  
 **Completion time: 91.8 s - invalid (13 departures).**  
-**Track: Silverstone - not tested in this configuration.**
+**Silverstone: 600 s timeout, 5 departures. Spa: 600 s timeout, 9 departures.** See the expanded [24-attempt benchmark](../all_configurations/REPORT.md).
 
 ### 2. With assistance
 
@@ -140,8 +140,10 @@ are clipped to the physical 0-1 label range before scoring.
 exploring horizons. Call those measurements exploratory validation, not an
 untouched final-test estimate. Silverstone was evaluated with frozen Monza model
 weights and planner settings, but after seeing that result it must not be used
-to tune a new system while still claiming a fresh test. Reserve a third circuit
-and additional sessions for a future final evaluation.
+to tune a new system while still claiming a fresh test. The later study froze its
+selection before evaluating Spa (see ../completed_study/final_test_protocol.json).
+The expanded 24-attempt benchmark is subsequent development evaluation on already
+inspected circuits. Reserve additional sessions/circuits for a new final evaluation.
 
 ## 4. Compare model families
 
@@ -218,30 +220,13 @@ or statistical significance. Do not claim superiority to real drivers. The
 0.05 s Monza check (204.6 s, zero departures) is a useful timestep sensitivity
 check, not a reliability guarantee.
 
-## 7. Remaining work against the rubric
+## 7. Completed follow-up against the rubric
 
-1. **More independent groups:** collect additional training laps/sessions to
-   support more than two CV folds. Keep a new circuit/session untouched for a
-   final evaluation. Never randomly split adjacent telemetry rows.
-2. **Justified tuning:** use grouped training-only CV for a modest randomized
-   search over the shortlisted models. Explain the search bounds and budget.
-   Treat horizon and transformations as hyperparameters; do not optimize them
-   using the final test circuit.
-3. **Ensemble experiment:** compare a justified RF/SVR or other complementary
-   combination with its individual members. RF is already a tree ensemble, but
-   that does not replace the requested explicit comparison.
-4. **Model/error interpretation:** add permutation-importance stability across
-   groups, brake precision/recall or balanced metrics, error by speed/curvature,
-   and more recovery-state examples. Impurity importance is a first pass.
-5. **Closed-loop evaluation:** benchmark shortlisted/tuned candidates rather
-   than assuming smaller offline MAE means faster valid laps. Evaluate multiple
-   predefined starts/conditions without selecting only successful outcomes.
-6. **Submission:** link the GitHub repository and organize documentation around
-   the rubric's four source-code areas. Build the presentation with a clear
-   problem-to-evidence storyline and rehearse to the stated 10-minute limit.
+The originally missing training-only tuning, explicit ensemble comparison and fresh circuit evaluation have now been performed. See [completed study](../completed_study/REPORT.md) and the repository [project documentation](../../DOCUMENTATION.md).
 
-The media pack improves communication and documents real results. It does not
-substitute for missing tuning, ensembles, independent data or final-test discipline.
+The follow-up uses 18 seeded candidate settings across three families, whole-lap training-only validation, a fixed equal-weight RF/SVR ensemble, and a frozen-model Spa test defined before retrieving its geometry. All predefined final results are retained. The original lap-14 measurements remain exploratory; the fresh evaluation is a separate closed-loop simulator test, not newly collected real-driver telemetry.
+
+More independent training sessions, more evaluation conditions and a broader error analysis remain useful future improvements. These limitations do not mean the added tuning and final-test experiments were omitted.
 
 ## 8. Assumptions and their practical impact
 

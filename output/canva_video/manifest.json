@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Monza_FullLap_LearnedDriver_10x",
+    "path": "C:\\Users\\tonyt\\Downloads\\INSY-674-Project\\output\\canva_video\\Monza_FullLap_LearnedDriver_10x.mp4",
+    "source": "Slide_01_Monza_LearnedDriver_FullLap_10x.gif",
+    "width": 880,
+    "height": 600,
+    "frames": 106,
+    "duration_s": 21.2
+  },
+  {
+    "name": "Silverstone_FullLap_LearnedDriver_10x",
+    "path": "C:\\Users\\tonyt\\Downloads\\INSY-674-Project\\output\\canva_video\\Silverstone_FullLap_LearnedDriver_10x.mp4",
+    "source": "Optional_Stage3_Silverstone_FullLap_10x.gif",
+    "width": 880,
+    "height": 600,
+    "frames": 135,
+    "duration_s": 27.0
+  },
+  {
+    "name": "Stage1_Monza_NoSpeedPlanner_1x",
+    "path": "C:\\Users\\tonyt\\Downloads\\INSY-674-Project\\output\\canva_video\\Stage1_Monza_NoSpeedPlanner_1x.mp4",
+    "source": "Slides_04_07_Stage1_Monza_NoSpeedPlanner_1x.gif",
+    "width": 880,
+    "height": 600,
+    "frames": 31,
+    "duration_s": 3.1
+  },
+  {
+    "name": "Stage2_Monza_WithSpeedPlanner_1x",
+    "path": "C:\\Users\\tonyt\\Downloads\\INSY-674-Project\\output\\canva_video\\Stage2_Monza_WithSpeedPlanner_1x.mp4",
+    "source": "Slides_04_08_Stage2_Monza_WithSpeedPlanner_1x.gif",
+    "width": 880,
+    "height": 600,
+    "frames": 61,
+    "duration_s": 6.1
+  },
+  {
+    "name": "Stage3_Monza_LearnedFullControl_1x",
+    "path": "C:\\Users\\tonyt\\Downloads\\INSY-674-Project\\output\\canva_video\\Stage3_Monza_LearnedFullControl_1x.mp4",
+    "source": "Slides_04_09_Stage3_Monza_LearnedSteeringAndPedals_1x.gif",
+    "width": 880,
+    "height": 600,
+    "frames": 61,
+    "duration_s": 6.1
+  },
+  {
+    "name": "Stage3_Silverstone_TransferTurn_1x",
+    "path": "C:\\Users\\tonyt\\Downloads\\INSY-674-Project\\output\\canva_video\\Stage3_Silverstone_TransferTurn_1x.mp4",
+    "source": "Slides_11_13_Stage3_Silverstone_TransferTurn_1x.gif",
+    "width": 880,
+    "height": 600,
+    "frames": 61,
+    "duration_s": 6.1
+  }
+]
