@@ -1,0 +1,545 @@
+{
+  "training_laps": [
+    5,
+    11
+  ],
+  "excluded_from_selection": [
+    14
+  ],
+  "selection_metric": "mean throttle/brake MAE; clipped to [0,1]",
+  "search": "6 seeded random candidates per family; 2-fold whole-lap GroupKFold",
+  "rationale": "Tree leaf/depth/feature limits vary smoothness; SVR C/epsilon/gamma vary flexibility and tolerance; network width/regularization/learning rate vary capacity and fitting. Budget limited by two independent training laps.",
+  "caveat": "Selection scores reuse tuning folds and are optimistic, not independent test estimates; fresh circuit evaluates driving, not real telemetry prediction.",
+  "trials": [
+    {
+      "model": "Random Forest",
+      "candidate": 0,
+      "params": {
+        "min_samples_leaf": 2,
+        "max_features": 0.7,
+        "max_depth": 16
+      },
+      "combined_mae": 0.05381012701845367,
+      "throttle_mae": 0.04519308409539835,
+      "brake_mae": 0.062427169941508986,
+      "fold_errors": [
+        [
+          0.047733063815343334,
+          0.06148907219402145
+        ],
+        [
+          0.042653104375453374,
+          0.06336526768899653
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Random Forest",
+      "candidate": 1,
+      "params": {
+        "min_samples_leaf": 10,
+        "max_features": 1.0,
+        "max_depth": 16
+      },
+      "combined_mae": 0.0892522802377984,
+      "throttle_mae": 0.08034900292495459,
+      "brake_mae": 0.0981555575506422,
+      "fold_errors": [
+        [
+          0.08194357308852161,
+          0.09503946701007523
+        ],
+        [
+          0.07875443276138758,
+          0.10127164809120918
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Random Forest",
+      "candidate": 2,
+      "params": {
+        "min_samples_leaf": 5,
+        "max_features": 1.0,
+        "max_depth": null
+      },
+      "combined_mae": 0.06981462438959554,
+      "throttle_mae": 0.061642991047758125,
+      "brake_mae": 0.07798625773143295,
+      "fold_errors": [
+        [
+          0.06411757085780537,
+          0.07616342471726538
+        ],
+        [
+          0.059168411237710876,
+          0.07980909074560052
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Random Forest",
+      "candidate": 3,
+      "params": {
+        "min_samples_leaf": 5,
+        "max_features": 1.0,
+        "max_depth": 16
+      },
+      "combined_mae": 0.06981497186342472,
+      "throttle_mae": 0.06164368599541649,
+      "brake_mae": 0.07798625773143295,
+      "fold_errors": [
+        [
+          0.06411757085780537,
+          0.07616342471726538
+        ],
+        [
+          0.05916980113302762,
+          0.07980909074560052
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Random Forest",
+      "candidate": 4,
+      "params": {
+        "min_samples_leaf": 10,
+        "max_features": 0.7,
+        "max_depth": null
+      },
+      "combined_mae": 0.09227607053465375,
+      "throttle_mae": 0.08388552956545926,
+      "brake_mae": 0.10066661150384826,
+      "fold_errors": [
+        [
+          0.08537200961395384,
+          0.09750819253669372
+        ],
+        [
+          0.08239904951696468,
+          0.10382503047100279
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Random Forest",
+      "candidate": 5,
+      "params": {
+        "min_samples_leaf": 10,
+        "max_features": 0.7,
+        "max_depth": 16
+      },
+      "combined_mae": 0.09227607053465375,
+      "throttle_mae": 0.08388552956545926,
+      "brake_mae": 0.10066661150384826,
+      "fold_errors": [
+        [
+          0.08537200961395384,
+          0.09750819253669372
+        ],
+        [
+          0.08239904951696468,
+          0.10382503047100279
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Support vector",
+      "candidate": 0,
+      "params": {
+        "multioutputregressor__estimator__gamma": 0.03,
+        "multioutputregressor__estimator__epsilon": 0.05,
+        "multioutputregressor__estimator__C": 10.0
+      },
+      "combined_mae": 0.06000384081789391,
+      "throttle_mae": 0.051130596388967706,
+      "brake_mae": 0.06887708524682012,
+      "fold_errors": [
+        [
+          0.04936383751200592,
+          0.06769848427704683
+        ],
+        [
+          0.0528973552659295,
+          0.0700556862165934
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Support vector",
+      "candidate": 1,
+      "params": {
+        "multioutputregressor__estimator__gamma": 0.1,
+        "multioutputregressor__estimator__epsilon": 0.02,
+        "multioutputregressor__estimator__C": 5.0
+      },
+      "combined_mae": 0.06370625978064683,
+      "throttle_mae": 0.05434105953681388,
+      "brake_mae": 0.07307146002447977,
+      "fold_errors": [
+        [
+          0.054075296453630614,
+          0.07044622541248963
+        ],
+        [
+          0.05460682261999716,
+          0.07569669463646991
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Support vector",
+      "candidate": 2,
+      "params": {
+        "multioutputregressor__estimator__gamma": 0.03,
+        "multioutputregressor__estimator__epsilon": 0.1,
+        "multioutputregressor__estimator__C": 1.0
+      },
+      "combined_mae": 0.08391126093024587,
+      "throttle_mae": 0.07760989134942767,
+      "brake_mae": 0.09021263051106407,
+      "fold_errors": [
+        [
+          0.07869111725467053,
+          0.0897917248405249
+        ],
+        [
+          0.0765286654441848,
+          0.09063353618160323
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Support vector",
+      "candidate": 3,
+      "params": {
+        "multioutputregressor__estimator__gamma": "scale",
+        "multioutputregressor__estimator__epsilon": 0.05,
+        "multioutputregressor__estimator__C": 10.0
+      },
+      "combined_mae": 0.0649104753044478,
+      "throttle_mae": 0.05600950130095522,
+      "brake_mae": 0.07381144930794038,
+      "fold_errors": [
+        [
+          0.054985408305928456,
+          0.07069889885475224
+        ],
+        [
+          0.05703359429598198,
+          0.07692399976112853
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Support vector",
+      "candidate": 4,
+      "params": {
+        "multioutputregressor__estimator__gamma": 0.03,
+        "multioutputregressor__estimator__epsilon": 0.05,
+        "multioutputregressor__estimator__C": 5.0
+      },
+      "combined_mae": 0.06218222931526264,
+      "throttle_mae": 0.05390493539681019,
+      "brake_mae": 0.0704595232337151,
+      "fold_errors": [
+        [
+          0.05324233640571552,
+          0.07004810159521334
+        ],
+        [
+          0.05456753438790486,
+          0.07087094487221685
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Support vector",
+      "candidate": 5,
+      "params": {
+        "multioutputregressor__estimator__gamma": "scale",
+        "multioutputregressor__estimator__epsilon": 0.1,
+        "multioutputregressor__estimator__C": 1.0
+      },
+      "combined_mae": 0.08455803020781995,
+      "throttle_mae": 0.07586667405427318,
+      "brake_mae": 0.0932493863613667,
+      "fold_errors": [
+        [
+          0.0787233810371965,
+          0.09258907563749252
+        ],
+        [
+          0.07300996707134985,
+          0.0939096970852409
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Neural network",
+      "candidate": 0,
+      "params": {
+        "mlpregressor__learning_rate_init": 0.001,
+        "mlpregressor__hidden_layer_sizes": [
+          32,
+          16
+        ],
+        "mlpregressor__alpha": 0.0001
+      },
+      "combined_mae": 0.09747158097444014,
+      "throttle_mae": 0.09522556147587928,
+      "brake_mae": 0.09971760047300099,
+      "fold_errors": [
+        [
+          0.09429073838693001,
+          0.09937277504809545
+        ],
+        [
+          0.09616038456482855,
+          0.10006242589790651
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Neural network",
+      "candidate": 1,
+      "params": {
+        "mlpregressor__learning_rate_init": 0.0003,
+        "mlpregressor__hidden_layer_sizes": [
+          32,
+          16
+        ],
+        "mlpregressor__alpha": 0.01
+      },
+      "combined_mae": 0.1331359708318694,
+      "throttle_mae": 0.13645074057847068,
+      "brake_mae": 0.12982120108526812,
+      "fold_errors": [
+        [
+          0.1378235643268068,
+          0.12759384553052266
+        ],
+        [
+          0.13507791683013454,
+          0.1320485566400136
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Neural network",
+      "candidate": 2,
+      "params": {
+        "mlpregressor__learning_rate_init": 0.0003,
+        "mlpregressor__hidden_layer_sizes": [
+          32,
+          32
+        ],
+        "mlpregressor__alpha": 0.01
+      },
+      "combined_mae": 0.11077257700716306,
+      "throttle_mae": 0.12466467840532883,
+      "brake_mae": 0.09688047560899729,
+      "fold_errors": [
+        [
+          0.13236487673307043,
+          0.09259861594664184
+        ],
+        [
+          0.11696448007758721,
+          0.10116233527135274
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Neural network",
+      "candidate": 3,
+      "params": {
+        "mlpregressor__learning_rate_init": 0.0003,
+        "mlpregressor__hidden_layer_sizes": [
+          64,
+          32
+        ],
+        "mlpregressor__alpha": 0.01
+      },
+      "combined_mae": 0.09997047040497581,
+      "throttle_mae": 0.09383963077295829,
+      "brake_mae": 0.10610131003699334,
+      "fold_errors": [
+        [
+          0.09590873358733865,
+          0.10270991858827377
+        ],
+        [
+          0.09177052795857792,
+          0.10949270148571291
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Neural network",
+      "candidate": 4,
+      "params": {
+        "mlpregressor__learning_rate_init": 0.0003,
+        "mlpregressor__hidden_layer_sizes": [
+          32,
+          32
+        ],
+        "mlpregressor__alpha": 0.1
+      },
+      "combined_mae": 0.11098442926143019,
+      "throttle_mae": 0.12479477497252676,
+      "brake_mae": 0.09717408355033362,
+      "fold_errors": [
+        [
+          0.13235236745987475,
+          0.09288562382697117
+        ],
+        [
+          0.11723718248517878,
+          0.10146254327369607
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Neural network",
+      "candidate": 5,
+      "params": {
+        "mlpregressor__learning_rate_init": 0.0003,
+        "mlpregressor__hidden_layer_sizes": [
+          64,
+          32
+        ],
+        "mlpregressor__alpha": 0.0001
+      },
+      "combined_mae": 0.09998046844446846,
+      "throttle_mae": 0.09387724648695468,
+      "brake_mae": 0.10608369040198223,
+      "fold_errors": [
+        [
+          0.09586885514720103,
+          0.10266382145367482
+        ],
+        [
+          0.09188563782670833,
+          0.10950355935028966
+        ]
+      ],
+      "convergence_warnings": 0
+    }
+  ],
+  "summary": [
+    {
+      "model": "Random Forest",
+      "candidate": 0,
+      "params": {
+        "min_samples_leaf": 2,
+        "max_features": 0.7,
+        "max_depth": 16
+      },
+      "combined_mae": 0.05381012701845367,
+      "throttle_mae": 0.04519308409539835,
+      "brake_mae": 0.062427169941508986,
+      "fold_errors": [
+        [
+          0.047733063815343334,
+          0.06148907219402145
+        ],
+        [
+          0.042653104375453374,
+          0.06336526768899653
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Support vector",
+      "candidate": 0,
+      "params": {
+        "multioutputregressor__estimator__gamma": 0.03,
+        "multioutputregressor__estimator__epsilon": 0.05,
+        "multioutputregressor__estimator__C": 10.0
+      },
+      "combined_mae": 0.06000384081789391,
+      "throttle_mae": 0.051130596388967706,
+      "brake_mae": 0.06887708524682012,
+      "fold_errors": [
+        [
+          0.04936383751200592,
+          0.06769848427704683
+        ],
+        [
+          0.0528973552659295,
+          0.0700556862165934
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Neural network",
+      "candidate": 0,
+      "params": {
+        "mlpregressor__learning_rate_init": 0.001,
+        "mlpregressor__hidden_layer_sizes": [
+          32,
+          16
+        ],
+        "mlpregressor__alpha": 0.0001
+      },
+      "combined_mae": 0.09747158097444014,
+      "throttle_mae": 0.09522556147587928,
+      "brake_mae": 0.09971760047300099,
+      "fold_errors": [
+        [
+          0.09429073838693001,
+          0.09937277504809545
+        ],
+        [
+          0.09616038456482855,
+          0.10006242589790651
+        ]
+      ],
+      "convergence_warnings": 0
+    },
+    {
+      "model": "Equal RF and SVR ensemble",
+      "combined_mae": 0.05446251302518998,
+      "throttle_mae": 0.045731742727551636,
+      "brake_mae": 0.06319328332282834,
+      "fold_errors": [
+        [
+          0.04655272759410308,
+          0.06199130753979816
+        ],
+        [
+          0.04491075786100018,
+          0.0643952591058585
+        ]
+      ],
+      "convergence_warnings": 0,
+      "params": {
+        "weights": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  ],
+  "selected": "Random Forest"
+}

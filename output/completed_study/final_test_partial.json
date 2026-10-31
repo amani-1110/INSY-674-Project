@@ -1,0 +1,62 @@
+{
+  "Planner only": {
+    "lap_time": 287.39999999999685,
+    "distance_travelled": 7020.084048238447,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "Planner only",
+    "elapsed_time": 287.39999999999685,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  },
+  "Random Forest": {
+    "lap_time": 281.9999999999956,
+    "distance_travelled": 7019.031017135093,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "Random Forest",
+    "elapsed_time": 281.9999999999956,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  },
+  "Support vector": {
+    "lap_time": 281.8999999999956,
+    "distance_travelled": 7020.311184864124,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "Support vector",
+    "elapsed_time": 281.8999999999956,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  },
+  "Neural network": {
+    "lap_time": 276.79999999999444,
+    "distance_travelled": 7020.761046254647,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "Neural network",
+    "elapsed_time": 276.79999999999444,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  },
+  "Equal RF and SVR ensemble": {
+    "lap_time": 281.19999999999544,
+    "distance_travelled": 7018.805466154711,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "Equal RF and SVR ensemble",
+    "elapsed_time": 281.19999999999544,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  },
+  "Frozen full-action driver": {
+    "lap_time": 294.2999999999984,
+    "distance_travelled": 7020.995170692012,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "Frozen full-action driver",
+    "elapsed_time": 294.2999999999984,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  }
+}

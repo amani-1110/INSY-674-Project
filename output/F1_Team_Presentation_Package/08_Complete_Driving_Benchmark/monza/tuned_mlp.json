@@ -1,0 +1,23 @@
+{
+  "track": "monza",
+  "configuration": {
+    "id": "tuned_mlp",
+    "name": "Tuned neural pedals + speed planner",
+    "learns": "Throttle and brake",
+    "assistance": "Rule steering, speed planner, launch and pedal cleanup",
+    "training": "Real Monza laps 5 and 11; training-only tuning"
+  },
+  "protocol_sha256": "6c91f51a6b4c9ad2d2c37b85ff5d53c17e8b2b27dabb6e705c1f45dd16c2d629",
+  "model_files_unchanged": true,
+  "helpers_guarded": false,
+  "result": {
+    "lap_time": 199.09999999999297,
+    "distance_travelled": 5803.589620156791,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "tuned_mlp",
+    "elapsed_time": 199.09999999999297,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  }
+}

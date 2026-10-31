@@ -7,7 +7,7 @@ venv/
 .DS_Store
 
 # Generated results, plots, presentations and local caches never belong in Git.
-/output/
+
 /tmp/
 /cache/
 *.egg-info/

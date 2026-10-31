@@ -1,0 +1,10 @@
+{
+  "lap_time": 204.60000000001227,
+  "distance_travelled": 5799.538187594754,
+  "off_track_events": 0,
+  "completed_lap": true,
+  "controller_name": "hybrid_dt005",
+  "elapsed_time": 204.60000000001227,
+  "valid_lap": true,
+  "termination": "lap_complete"
+}

@@ -1,0 +1,23 @@
+{
+  "track": "spa",
+  "configuration": {
+    "id": "combined_rf_svr",
+    "name": "50/50 RF + SVR pedals + speed planner",
+    "learns": "Throttle and brake",
+    "assistance": "Rule steering, speed planner, launch and pedal cleanup",
+    "training": "Real Monza laps 5 and 11; fixed blend weights"
+  },
+  "protocol_sha256": "6c91f51a6b4c9ad2d2c37b85ff5d53c17e8b2b27dabb6e705c1f45dd16c2d629",
+  "model_files_unchanged": true,
+  "helpers_guarded": false,
+  "result": {
+    "lap_time": 281.19999999999544,
+    "distance_travelled": 7018.805466154711,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "combined_rf_svr",
+    "elapsed_time": 281.19999999999544,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  }
+}

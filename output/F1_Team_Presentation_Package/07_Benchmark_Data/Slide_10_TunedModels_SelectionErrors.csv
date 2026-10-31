@@ -1,0 +1,5 @@
+model,candidate,params,combined_mae,throttle_mae,brake_mae,convergence_warnings
+Random Forest,0.0,"{'min_samples_leaf': 2, 'max_features': 0.7, 'max_depth': 16}",0.05381012701845367,0.04519308409539835,0.062427169941508986,0
+Support vector,0.0,"{'multioutputregressor__estimator__gamma': 0.03, 'multioutputregressor__estimator__epsilon': 0.05, 'multioutputregressor__estimator__C': 10.0}",0.06000384081789391,0.051130596388967706,0.06887708524682012,0
+Neural network,0.0,"{'mlpregressor__learning_rate_init': 0.001, 'mlpregressor__hidden_layer_sizes': (32, 16), 'mlpregressor__alpha': 0.0001}",0.09747158097444014,0.09522556147587928,0.09971760047300099,0
+Equal RF and SVR ensemble,,"{'weights': [0.5, 0.5]}",0.05446251302518998,0.045731742727551636,0.06319328332282834,0

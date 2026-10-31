@@ -1,0 +1,60 @@
+{
+  "model_sha256": "993019829234a6fe18dd07d2b543f6f564cb51d596c10f55c7c1dd774155a617",
+  "training_circuit": "monza",
+  "model_retrained": false,
+  "planner_tuned_on_test": false,
+  "results": [
+    {
+      "circuit": "Monza",
+      "role": "Training circuit",
+      "planner_only": {
+        "lap_time": 208.69999999999243,
+        "distance_travelled": 5799.7631411189,
+        "off_track_events": 0,
+        "completed_lap": true,
+        "controller_name": "planner_only",
+        "elapsed_time": 208.69999999999243,
+        "valid_lap": true,
+        "termination": "lap_complete"
+      },
+      "hybrid": {
+        "lap_time": 205.39999999999262,
+        "distance_travelled": 5799.615364297452,
+        "off_track_events": 0,
+        "completed_lap": true,
+        "controller_name": "hybrid",
+        "elapsed_time": 205.39999999999262,
+        "valid_lap": true,
+        "termination": "lap_complete"
+      },
+      "gain_s": 3.2999999999998124,
+      "gain_percent": 1.5812170579779263
+    },
+    {
+      "circuit": "Silverstone",
+      "role": "Unseen circuit",
+      "planner_only": {
+        "lap_time": 258.29999999999023,
+        "distance_travelled": 5904.485818340687,
+        "off_track_events": 0,
+        "completed_lap": true,
+        "controller_name": "planner_only",
+        "elapsed_time": 258.29999999999023,
+        "valid_lap": true,
+        "termination": "lap_complete"
+      },
+      "hybrid": {
+        "lap_time": 256.4999999999898,
+        "distance_travelled": 5905.068339132279,
+        "off_track_events": 0,
+        "completed_lap": true,
+        "controller_name": "hybrid",
+        "elapsed_time": 256.4999999999898,
+        "valid_lap": true,
+        "termination": "lap_complete"
+      },
+      "gain_s": 1.8000000000004093,
+      "gain_percent": 0.6968641114984426
+    }
+  ]
+}

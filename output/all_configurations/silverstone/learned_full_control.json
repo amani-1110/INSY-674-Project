@@ -1,0 +1,23 @@
+{
+  "track": "silverstone",
+  "configuration": {
+    "id": "learned_full_control",
+    "name": "Learned steering and pedals",
+    "learns": "Steering, throttle and brake",
+    "assistance": "Actuator limits only",
+    "training": "40,000 simulated Monza teacher-labelled situations"
+  },
+  "protocol_sha256": "6c91f51a6b4c9ad2d2c37b85ff5d53c17e8b2b27dabb6e705c1f45dd16c2d629",
+  "model_files_unchanged": true,
+  "helpers_guarded": true,
+  "result": {
+    "lap_time": 266.29999999999205,
+    "distance_travelled": 5903.534762957053,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "learned_full_control",
+    "elapsed_time": 266.29999999999205,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  }
+}

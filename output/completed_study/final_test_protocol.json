@@ -1,0 +1,21 @@
+{
+  "created_utc": "2026-10-30T22:21:55.841944+00:00",
+  "circuit": "spa",
+  "source_commit": "e59595d1f3573b30d1ded6a08984935b957688e0",
+  "source_path": "tracks/Spa.csv",
+  "dt": 0.1,
+  "max_time": 600,
+  "start": "default start from rest",
+  "selection": "Random Forest",
+  "model_hashes": {
+    "Random Forest": "a7836ea9879fdd2a578613b8760e67cac11a5d33e441455eb5f3542265c2a5ef",
+    "Support vector": "0f4f2b3c6ecf17b20d15a8a1caecd3942caa8da748d228e82a597362b7f470c6",
+    "Neural network": "1ad6799b8f93f1bd6c2b8819bc4af61b4d4e38b7369618d185300e94644c9123",
+    "Equal RF and SVR ensemble": "efcbe5a9ae6c18302323230f5b1f31a7062f04bb6f2926d0acf8eadac180a30c"
+  },
+  "full_action_hash": "feb4b8304f06a0d03479623dae3dc209647dc5400852b6e0ace0c433cb0c3af4",
+  "primary_comparison": "training-CV selected candidate versus planner-only; frozen full-action policy separately",
+  "all_candidates_reported": true,
+  "no_post_test_tuning": true,
+  "success": "lap complete and zero departures; compare time only when both valid"
+}

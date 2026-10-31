@@ -1,0 +1,36 @@
+{
+  "horizon_m": 500,
+  "model_sha256": "993019829234a6fe18dd07d2b543f6f564cb51d596c10f55c7c1dd774155a617",
+  "dt": 0.1,
+  "max_time": 600.0,
+  "start_speed": 0.0,
+  "steering_unchanged": true,
+  "planner": {
+    "horizon_m": 500.0,
+    "sample_spacing_m": 5.0,
+    "max_speed_mps": 45.0,
+    "lateral_accel_mps2": 4.0,
+    "braking_decel_mps2": 5.0,
+    "braking_buffer_m": 15.0
+  },
+  "corrected_imitation": {
+    "lap_time": 91.79999999999906,
+    "distance_travelled": 5957.032022517921,
+    "off_track_events": 13,
+    "completed_lap": true,
+    "controller_name": "corrected_imitation",
+    "elapsed_time": 91.79999999999906,
+    "valid_lap": false,
+    "termination": "lap_complete"
+  },
+  "hybrid": {
+    "lap_time": 205.39999999999262,
+    "distance_travelled": 5799.615364297452,
+    "off_track_events": 0,
+    "completed_lap": true,
+    "controller_name": "hybrid",
+    "elapsed_time": 205.39999999999262,
+    "valid_lap": true,
+    "termination": "lap_complete"
+  }
+}

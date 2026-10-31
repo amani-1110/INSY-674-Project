@@ -1,0 +1,96 @@
+{
+  "folds": 2,
+  "method": "Same fold-specific alignment, GroupKFold laps 5 and 11",
+  "ensembles": [
+    "Equal RF-SVR VotingRegressor",
+    "Soft RF-Logistic VotingClassifier"
+  ],
+  "stacking": "Not attempted: only two independent training groups are insufficient for a credible leakage-safe meta-learner.",
+  "summary": [
+    {
+      "task": "throttle",
+      "model": "Random Forest",
+      "mae_mean": 0.055285525586712375,
+      "mae_std": 0.0029239186779313653,
+      "precision_mean": null,
+      "precision_std": null,
+      "recall_mean": null,
+      "recall_std": null,
+      "f1_mean": null,
+      "f1_std": null,
+      "balanced_accuracy_mean": null,
+      "balanced_accuracy_std": null
+    },
+    {
+      "task": "throttle",
+      "model": "SVR",
+      "mae_mean": 0.05639673124522323,
+      "mae_std": 0.002432119367626999,
+      "precision_mean": null,
+      "precision_std": null,
+      "recall_mean": null,
+      "recall_std": null,
+      "f1_mean": null,
+      "f1_std": null,
+      "balanced_accuracy_mean": null,
+      "balanced_accuracy_std": null
+    },
+    {
+      "task": "throttle",
+      "model": "Equal RF-SVR VotingRegressor",
+      "mae_mean": 0.053322938911657264,
+      "mae_std": 0.0005089628340483759,
+      "precision_mean": null,
+      "precision_std": null,
+      "recall_mean": null,
+      "recall_std": null,
+      "f1_mean": null,
+      "f1_std": null,
+      "balanced_accuracy_mean": null,
+      "balanced_accuracy_std": null
+    },
+    {
+      "task": "brake",
+      "model": "Random Forest",
+      "mae_mean": null,
+      "mae_std": null,
+      "precision_mean": 0.8481012658227848,
+      "precision_std": 0.0,
+      "recall_mean": 0.8817316017316017,
+      "recall_std": 0.01640732617818138,
+      "f1_mean": 0.8645521145521144,
+      "f1_std": 0.007888137585664085,
+      "balanced_accuracy_mean": 0.9292038941610545,
+      "balanced_accuracy_std": 0.008251745965548387
+    },
+    {
+      "task": "brake",
+      "model": "Logistic Regression",
+      "mae_mean": null,
+      "mae_std": null,
+      "precision_mean": 0.31043956043956045,
+      "precision_std": 0.0038852020944315662,
+      "recall_mean": 0.7434632034632035,
+      "recall_std": 0.004530381108900831,
+      "f1_mean": 0.437976052762045,
+      "f1_std": 0.003080704994427819,
+      "balanced_accuracy_mean": 0.7497689107664628,
+      "balanced_accuracy_std": 0.0020808728613626068
+    },
+    {
+      "task": "brake",
+      "model": "Soft RF-Logistic VotingClassifier",
+      "mae_mean": null,
+      "mae_std": null,
+      "precision_mean": 0.6950354609929078,
+      "precision_std": 0.04011953368434318,
+      "recall_mean": 0.855930735930736,
+      "recall_std": 0.07175144134637519,
+      "f1_mean": 0.7670727462582666,
+      "f1_std": 0.0532606708836648,
+      "balanced_accuracy_mean": 0.9002612562649283,
+      "balanced_accuracy_std": 0.03942583971831246
+    }
+  ],
+  "interpretation": "Compare each ensemble with its individual constituent models; no ensemble is presumed superior."
+}

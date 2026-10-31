@@ -1,0 +1,22 @@
+﻿file,use,source
+02_GIFs/Slide_01_Monza_LearnedDriver_FullLap_10x.gif,"Slide 1: optional opening demo. Nominal 10x playback, not real time.",output/analysis_pack/media/monza_full_action_lap_10x.gif
+02_GIFs/Slides_04_07_Stage1_Monza_NoSpeedPlanner_1x.gif,"Slides 4 and 7: naive learned pedals, first road departure. Rule steering and pedal cleanup remain.",output/analysis_pack/media/monza_first_departure_1x.gif
+02_GIFs/Slides_04_08_Stage2_Monza_WithSpeedPlanner_1x.gif,Slides 4 and 8: assisted learned pedals near the same turn. Planner can override pedals.,output/analysis_pack/media/monza_same_turn_with_planner_1x.gif
+02_GIFs/Slides_04_09_Stage3_Monza_LearnedSteeringAndPedals_1x.gif,"Slides 4 and 9: learned full control, no runtime driving-rule assistance; actuator limits remain.",output/analysis_pack/media/monza_full_action_turn_1x.gif
+02_GIFs/Slides_11_13_Stage3_Silverstone_TransferTurn_1x.gif,Slides 11 and 13: actual Silverstone learned-driver replay. Not Spa footage.,output/analysis_pack/media/silverstone_full_action_turn_1x.gif
+02_GIFs/Optional_Stage3_Silverstone_FullLap_10x.gif,Optional full-lap transfer demo; nominal 10x playback.,output/analysis_pack/media/silverstone_full_action_lap_10x.gif
+03_Screenshots/Slides_01_04_09_Stage3_Monza_LearnedFullControl.png,"Slides 1, 4, 9: full-control driver at Monza.",output/analysis_pack/media/monza_full_action_screenshot.png
+03_Screenshots/Slide_03_Monza_Simulator_FollowCamera.png,"Slide 3: simulator with timing, progress and road-status display.",output/analysis_pack/media/monza_follow_screenshot.png
+03_Screenshots/Slides_04_07_Stage1_Monza_FirstDeparture.png,Slides 4 and 7: original pedal driver departure.,output/analysis_pack/media/monza_first_departure_screenshot.png
+03_Screenshots/Slides_04_08_Stage2_Monza_AssistedTurn.png,Slides 4 and 8: hybrid assisted turn.,output/analysis_pack/media/monza_turn_1_screenshot.png
+03_Screenshots/Slides_11_13_Stage3_Silverstone_LearnedFullControl.png,Slides 11 and 13: actual Silverstone replay.,output/analysis_pack/media/silverstone_full_action_screenshot.png
+04_Track_Maps/Slides_02_11_Monza_TrainingCircuit.png,"Slides 2 and 11: training circuit map, Italy.",output/pdf/presentation/media/monza_map.png
+04_Track_Maps/Slide_11_Silverstone_TransferCircuit.png,"Slide 11: first transfer circuit, United Kingdom.",output/pdf/presentation/media/silverstone_map.png
+04_Track_Maps/Slide_11_SpaFrancorchamps_FinalTestCircuit_Belgium.png,"Slide 11: Spa-Francorchamps, Belgium; fresh frozen-model test.",output/pdf/presentation/media/spa_map.png
+05_Charts_and_Diagrams/Slide_02_Physics_AccelerationAndBraking_Demonstration.png,"Slide 2: controlled run of shared physics, not a racing benchmark.",output/pdf/presentation/media/physics_acceleration_braking.png
+05_Charts_and_Diagrams/Slide_05_Monza_Lap5_RecordedSpeed_590Moments.png,Slide 5: speed over one saved lap; explains what recorded moments represent.,output/pdf/presentation/media/lap5_recorded_speed.png
+05_Charts_and_Diagrams/Slide_06_Monza_Lap5_TelemetryToTrack_Alignment.png,Slide 6: actual training-lap alignment output.,output/pipeline_500m/lap05_overlay.png
+05_Charts_and_Diagrams/Optional_OriginalModel_PlannerOnly_vs_LearnedPedals.png,Optional historical planner-only versus original hybrid comparison; not tuned-model Spa results.,output/analysis_pack/figures/02_valid_lap_ablation.png
+07_Benchmark_Data/Slide_10_TunedModels_SelectionErrors.csv,Tuned candidate selection means; two training-lap folds.,output/completed_study/comparison.csv
+07_Benchmark_Data/Slide_10_Tuning_All18Trials_AndFoldErrors.json,"All settings, per-fold errors and selected candidate.",output/completed_study/tuning.json
+07_Benchmark_Data/Slides_11_12_Spa_FinalBenchmarks_AllSixDrivers.json,"All six final Spa results, frozen model hashes and protocol.",output/completed_study/final_test.json
