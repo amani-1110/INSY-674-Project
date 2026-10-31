@@ -36,7 +36,9 @@ The existing full-action controller was trained from simulated expert demonstrat
 
 ## Validation record
 
-- Supplemental tests: `python -m pytest -q ml_analysis/test_workflow.py` — **6 passed**.
-- Full suite: **110 passed, 2 failed** when run with a process-local import alias for the existing `Alignment/` casing. The two failures are `test_track.py::test_source_provenance_hash` and `test_track.py::test_silverstone_source_geometry_and_periodicity`; both assert exact CSV byte hashes that differ under this Windows CRLF checkout. Existing project documentation already notes the line-ending/hash sensitivity. These source CSVs were not modified to avoid changing teammates' files.
-- A direct full-suite collection initially also required the repository's declared FastF1 dependency and an import-casing alias for the existing `Alignment/` directory; neither was changed in the repository.
-- Re-running the full suite with just those two hash-sensitive cases deselected gives **110 passed**. Loading the preserved trained artifact emits scikit-learn `InconsistentVersionWarning` because it was serialized with 1.8.0 while this environment uses 1.6.1; the artifact load/prediction test passes, but production reuse should pin the model's training version.
+- `python -m ml_analysis.run_all` — completed all five supplemental analyses; outputs were regenerated under `output/rubric_analysis/`.
+- `python -m ml_analysis.model_comparison` — completed successfully.
+- `python -m pytest -q ml_analysis/test_workflow.py` — **6 passed**.
+- `python -m pytest -q` — **116 passed, 2 failed**. The remaining failures are `tests/test_track_geometry.py::test_source_provenance_hash` and `tests/test_track_geometry.py::test_silverstone_source_geometry_and_periodicity`, which require exact source CSV byte hashes. The checked-out Monza and Silverstone files have CRLF line endings; their actual SHA-256 values differ from the hashes in the adjacent provenance JSON. Repairing those source files or their tests would require changes outside the permitted folders.
+- Running the full suite with those two hash checks deselected — **116 passed**.
+- Loading saved joblib models succeeds, but scikit-learn warns that they were serialized with 1.8.0 and are being loaded with 1.9.1 in this environment. The model-loading test passes; use the training scikit-learn version for reproducible model behavior.

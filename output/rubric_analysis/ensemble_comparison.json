@@ -10,8 +10,8 @@
     {
       "task": "throttle",
       "model": "Random Forest",
-      "mae_mean": 0.055285525586712375,
-      "mae_std": 0.0029239186779313653,
+      "mae_mean": 0.055289643981953684,
+      "mae_std": 0.0029179288032648585,
       "precision_mean": null,
       "precision_std": null,
       "recall_mean": null,
@@ -24,8 +24,8 @@
     {
       "task": "throttle",
       "model": "SVR",
-      "mae_mean": 0.05639673124522323,
-      "mae_std": 0.002432119367626999,
+      "mae_mean": 0.056396731245201163,
+      "mae_std": 0.0024321193676106307,
       "precision_mean": null,
       "precision_std": null,
       "recall_mean": null,
@@ -38,8 +38,8 @@
     {
       "task": "throttle",
       "model": "Equal RF-SVR VotingRegressor",
-      "mae_mean": 0.053322938911657264,
-      "mae_std": 0.0005089628340483759,
+      "mae_mean": 0.053325028652517814,
+      "mae_std": 0.000506035091555327,
       "precision_mean": null,
       "precision_std": null,
       "recall_mean": null,
@@ -54,14 +54,14 @@
       "model": "Random Forest",
       "mae_mean": null,
       "mae_std": null,
-      "precision_mean": 0.8481012658227848,
-      "precision_std": 0.0,
-      "recall_mean": 0.8817316017316017,
-      "recall_std": 0.01640732617818138,
-      "f1_mean": 0.8645521145521144,
-      "f1_std": 0.007888137585664085,
-      "balanced_accuracy_mean": 0.9292038941610545,
-      "balanced_accuracy_std": 0.008251745965548387
+      "precision_mean": 0.8224292518912861,
+      "precision_std": 0.00445780402821451,
+      "recall_mean": 0.9148917748917749,
+      "recall_std": 0.044936482890989275,
+      "f1_mean": 0.8659937888198758,
+      "f1_std": 0.022618633062799515,
+      "balanced_accuracy_mean": 0.9428685040649545,
+      "balanced_accuracy_std": 0.02252834504106677
     },
     {
       "task": "brake",
@@ -82,14 +82,14 @@
       "model": "Soft RF-Logistic VotingClassifier",
       "mae_mean": null,
       "mae_std": null,
-      "precision_mean": 0.6950354609929078,
-      "precision_std": 0.04011953368434318,
-      "recall_mean": 0.855930735930736,
-      "recall_std": 0.07175144134637519,
-      "f1_mean": 0.7670727462582666,
-      "f1_std": 0.0532606708836648,
-      "balanced_accuracy_mean": 0.9002612562649283,
-      "balanced_accuracy_std": 0.03942583971831246
+      "precision_mean": 0.6642628205128205,
+      "precision_std": 0.026063230716811794,
+      "recall_mean": 0.875930735930736,
+      "recall_std": 0.10003571259383712,
+      "f1_mean": 0.7550295475829109,
+      "f1_std": 0.05411706240230307,
+      "balanced_accuracy_mean": 0.9054077950926176,
+      "balanced_accuracy_std": 0.050839272103070494
     }
   ],
   "interpretation": "Compare each ensemble with its individual constituent models; no ensemble is presumed superior."

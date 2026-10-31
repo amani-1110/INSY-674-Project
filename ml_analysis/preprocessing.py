@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-import importlib.util
-import sys
 from typing import Iterable
 
 import numpy as np
@@ -18,34 +16,19 @@ from f1_simulator.core.imitation import (
     offsets_for_horizon,
     prepare_training_data,
 )
-from track import Track
+from f1_simulator.core.track import Track
 
 ROOT = Path(__file__).resolve().parents[1]
-TELEMETRY_DIR = ROOT / "telemetry" / "data" / "monza_three_new_laps"
+TELEMETRY_DIR = ROOT / "data" / "telemetry" / "monza_three_new_laps"
 TRAINING_LAPS = (5, 11)
 KNOWN_LAPS = (5, 11, 14)
 
-try:
-    from alignment.alignment import (
-        align_coordinates,
-        convert_to_track_coordinates,
-        estimate_transform,
-        load_lap_csv,
-    )
-except ModuleNotFoundError as error:
-    if error.name != "alignment":
-        raise
-    package_dir = next(path for path in ROOT.iterdir() if path.name.lower() == "alignment")
-    spec = importlib.util.spec_from_file_location("_insy674_alignment", package_dir / "alignment.py")
-    if spec is None or spec.loader is None:
-        raise ImportError("Could not load the repository's coordinate-alignment module")
-    alignment = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = alignment
-    spec.loader.exec_module(alignment)
-    align_coordinates = alignment.align_coordinates
-    convert_to_track_coordinates = alignment.convert_to_track_coordinates
-    estimate_transform = alignment.estimate_transform
-    load_lap_csv = alignment.load_lap_csv
+from f1_simulator.alignment.alignment import (
+    align_coordinates,
+    convert_to_track_coordinates,
+    estimate_transform,
+    load_lap_csv,
+)
 
 
 def load_raw_laps(lap_numbers: Iterable[int] = KNOWN_LAPS) -> dict[int, list[dict]]:

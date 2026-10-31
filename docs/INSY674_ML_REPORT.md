@@ -28,7 +28,7 @@ No observations were removed solely for being extreme. The source stream is irre
 
 Six regression and six classification candidates are compared. The objective requires different model tasks: continuous throttle regression and binary brake classification. The raw group count is too small to support a strong claim that any candidate will generalize to other sessions.
 
-The new two-fold training-only alignment CV selected **HistGradientBoosting for throttle** (MAE 0.0389 ± 0.0023; RMSE 0.0926 ± 0.0068; R² 0.9385 ± 0.0097) among the screened candidates. Random Forest (MAE 0.0553 ± 0.0029) and SVR (0.0564 ± 0.0024) remain useful complementary baselines and already have simulator artifacts. For brake classification, Random Forest had the strongest balanced accuracy (0.9292 ± 0.0083) and F1 (0.8646 ± 0.0079). Gradient Boosting (F1 0.8437 ± 0.0163) and SVC (F1 0.8082 ± 0.0081) are alternatives. The always-off Dummy classifier has F1 0 and balanced accuracy 0.5.
+The new two-fold training-only alignment CV selected **HistGradientBoosting for throttle** (MAE 0.0394 ± 0.0001; RMSE 0.0943 ± 0.0032; R² 0.9364 ± 0.0050) among the screened candidates. Random Forest (MAE 0.0553 ± 0.0029) and SVR (0.0564 ± 0.0024) remain useful complementary baselines and already have simulator artifacts. For brake classification, Random Forest had the strongest balanced accuracy (0.9429 ± 0.0225) and F1 (0.8660 ± 0.0226). Gradient Boosting (F1 0.8437 ± 0.0163) and SVC (F1 0.8082 ± 0.0081) are alternatives. The always-off Dummy classifier has F1 0 and balanced accuracy 0.5.
 
 The summary figures are generated as the bar/error-bar panels in `output/rubric_analysis/figures/model_comparison.png`. Feature importance is descriptive; curvature channels are correlated, so impurity importance is not causal evidence.
 
@@ -41,29 +41,29 @@ The table gives fold mean ± sample standard deviation over the two held-out lap
 | Throttle Dummy mean | MAE 0.3015 ± 0.0006 | R² −0.0005 ± 0.0000 |
 | Throttle Ridge | MAE 0.2043 ± 0.0058 | R² 0.3858 ± 0.0192 |
 | Throttle Random Forest | MAE 0.0553 ± 0.0029 | RMSE 0.1210 ± 0.0038 |
-| Throttle HistGradientBoosting | **MAE 0.0389 ± 0.0023** | RMSE 0.0926 ± 0.0068; R² 0.9385 ± 0.0097 |
+| Throttle HistGradientBoosting | **MAE 0.0394 ± 0.0001** | RMSE 0.0943 ± 0.0032; R² 0.9364 ± 0.0050 |
 | Throttle SVR | MAE 0.0564 ± 0.0024 | RMSE 0.1168 ± 0.0011 |
 | Throttle MLP | MAE 0.0588 ± 0.0017 | RMSE 0.1274 ± 0.0063 |
 | Brake Dummy most-frequent | F1 0.0000 | Balanced accuracy 0.5000 |
 | Brake Logistic Regression | F1 0.4380 ± 0.0031 | Balanced accuracy 0.7498 ± 0.0021 |
-| Brake Random Forest | **F1 0.8646 ± 0.0079** | Balanced accuracy 0.9292 ± 0.0083; precision 0.8481; recall 0.8817 |
+| Brake Random Forest | **F1 0.8660 ± 0.0226** | Balanced accuracy 0.9429 ± 0.0225; precision 0.8224; recall 0.9149 |
 | Brake Gradient Boosting | F1 0.8437 ± 0.0163 | Balanced accuracy 0.9073 ± 0.0204 |
 | Brake SVC | F1 0.8082 ± 0.0081 | Balanced accuracy 0.9215 ± 0.0268 |
 | Brake MLP | F1 0.1000 ± 0.0018 | Recall 0.0526; balanced accuracy 0.5263 |
 
-The Random Forest out-of-fold brake confusion matrix across the 1,181 held-out observations is `[[1005, 24], [18, 134]]` (rows actual off/on, columns predicted off/on). The sparse brake class and MLP's high precision but very low recall demonstrate why accuracy alone is not a suitable selection metric.
+The Random Forest out-of-fold brake confusion matrix across the 1,181 held-out observations is `[[999, 30], [13, 139]]` (rows actual off/on, columns predicted off/on). The sparse brake class and MLP's high precision but very low recall demonstrate why accuracy alone is not a suitable selection metric.
 
 Segment analysis found throttle MAE around 0.0208–0.0301 on straight segments, 0.0967–0.0954 in high-curvature segments and 0.1515–0.1761 within braking zones. This motivates targeted coverage of transitions and braking behavior. The full fold tables, model predictions, confusion matrix and segment results are in `output/rubric_analysis/`.
 
 ## 6. Fine-tune the system
 
-A seeded six-candidate randomized search per target used the same two lap groups and fold-specific alignment. Tuning HistGradientBoosting reduced throttle MAE from **0.0389 ± 0.0023** to **0.0374 ± 0.0009**. The tuned Random Forest brake classifier achieved F1 **0.8636 ± 0.0092**, slightly below its untuned value of **0.8646 ± 0.0079**. Thus, tuning gave a small throttle improvement but did not improve brake classification. Search candidates, fit durations and fold scores are recorded in `hyperparameter_trials.csv`. No test set was used for tuning.
+A seeded six-candidate randomized search per target used the same two lap groups and fold-specific alignment. Tuning HistGradientBoosting reduced throttle MAE from **0.0394 ± 0.0001** to **0.0377 ± 0.0002**. The tuned Random Forest brake classifier achieved F1 **0.8570 ± 0.0276**, below its untuned value of **0.8660 ± 0.0226**. Thus, tuning gave a small throttle improvement but did not improve brake classification. Search candidates, fit durations and fold scores are recorded in `hyperparameter_trials.csv`. No test set was used for tuning.
 
 These settings are not declared final models: with just two groups, any apparent ranking is unstable. See `hyperparameter_trials.csv` for candidate parameters, fold scores and elapsed time.
 
 ## 7. Present the solution: ensembles and simulator evidence
 
-On identical grouped folds, equal RF/SVR voting reduced throttle MAE to **0.0533 ± 0.0005**, compared with RF 0.0553 ± 0.0029 and SVR 0.0564 ± 0.0024. This modest difference is exploratory. The soft RF/logistic brake ensemble had F1 **0.7671 ± 0.0533**, below the standalone RF (0.8646 ± 0.0079); it is not recommended as an improvement. Stacking was omitted because two independent training groups do not support leakage-safe meta-training.
+On identical grouped folds, equal RF/SVR voting reduced throttle MAE to **0.0533 ± 0.0005**, compared with RF 0.0553 ± 0.0029 and SVR 0.0564 ± 0.0024. This modest difference is exploratory. The soft RF/logistic brake ensemble had F1 **0.7550 ± 0.0541**, below the standalone RF (0.8660 ± 0.0226); it is not recommended as an improvement. Stacking was omitted because two independent training groups do not support leakage-safe meta-training.
 
 The preserved Spa benchmark is a frozen **simulator driving** evaluation, not offline real-telemetry prediction. Planner-only completes in 287.4 s; tuned RF + planner in 282.0 s; tuned SVR + planner 281.9 s; tuned neural pedal + planner 276.8 s; RF/SVR blend + planner 281.2 s; frozen full-action driver 294.3 s. Each has zero off-track departures and a valid lap under the saved benchmark. These are deterministic system comparisons with differing control/model details, not a pure ranking of telemetry prediction algorithms. The full-action policy imitates a simulated expert; it was not trained on real steering labels.
 

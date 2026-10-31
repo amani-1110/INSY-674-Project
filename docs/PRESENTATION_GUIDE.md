@@ -9,8 +9,8 @@ Aim for about 55 seconds per slide, leaving a short transition buffer. Lead with
 | 3. Data quality | 1:00 | `figures/eda_distributions.png`; 13.0% brake-positive, no saved missing rows, irregular/interpolated signals, no start/recovery data |
 | 4. Track context | 0:55 | `figures/eda_curvature_and_position.png`; relate current curvature, speed and recorded controls without causal claims |
 | 5. Leakage-safe preparation | 0:55 | Whole-lap GroupKFold, transform fitted from training-lap positions, sklearn pipelines, two independent groups |
-| 6. Throttle model results | 1:00 | `figures/model_comparison.png`; HistGradientBoosting MAE 0.0389 ± 0.0023; emphasize only two folds |
-| 7. Brake model results | 1:00 | RF F1 0.8646 ± 0.0079, balanced accuracy 0.9292 ± 0.0083; show confusion matrix and weak MLP recall |
+| 6. Throttle model results | 1:00 | `figures/model_comparison.png`; HistGradientBoosting MAE 0.0394 ± 0.0001; emphasize only two folds |
+| 7. Brake model results | 1:00 | RF F1 0.8660 ± 0.0226, balanced accuracy 0.9429 ± 0.0225; show confusion matrix and weak MLP recall |
 | 8. Tuning and ensemble | 0:55 | `hyperparameter_trials.csv`, `ensemble_cv_summary.csv`; throttle tuning promising, brake search/soft ensemble no improvement |
 | 9. Simulator evidence | 1:00 | `figures/frozen_simulator_results.png`; Spa closed-loop results are not offline telemetry accuracy; simulated expert distinction |
 | 10. Limitations and next step | 1:00 | No independent telemetry test; collect new sessions/drivers/circuits, freeze a protocol, then evaluate once |
