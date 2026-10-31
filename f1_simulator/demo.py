@@ -1,3 +1,4 @@
+from .paths import MODEL_DIR
 import pygame
 
 from .core.track import Track
@@ -11,28 +12,28 @@ def main():
     parser.add_argument("--track", default="monza", help="Bundled circuit or demo")
     parser.add_argument("--track-csv", help="Custom centerline and widths CSV")
     parser.add_argument("--controller", choices=["manual", "baseline", "imitation", "hybrid", "planner", "learned"], default="manual")
-    parser.add_argument("--model", default="output/pipeline_250m/imitation_model.joblib")
-    parser.add_argument("--policy", default="output/learned_driver/policy.joblib")
+    parser.add_argument("--model", default=str(MODEL_DIR / "original_pedals.joblib"))
+    parser.add_argument("--policy", default=str(MODEL_DIR / "full_control.joblib"))
     parser.add_argument("--view", choices=["follow", "overview"], default="follow")
     args = parser.parse_args()
     track = Track.from_csv(args.track_csv) if args.track_csv else Track(args.track)
     controller = None
     if args.controller == "baseline":
-        from data_eval.baseline import baseline_action
+        from f1_simulator.controllers.baseline import baseline_action
         controller = baseline_action
     elif args.controller == "learned":
         from .core.full_policy import load_learned_driver
         controller = load_learned_driver(args.policy, track)
     elif args.controller == "planner":
-        from data_eval.speed_planner import make_planner_controller
+        from f1_simulator.controllers.speed_planner import make_planner_controller
         controller = make_planner_controller(track=track)
     elif args.controller in ("imitation", "hybrid"):
         from f1_simulator.core.imitation import load_model, predict_action
-        from data_eval.ai_controller import make_ai_controller
+        from f1_simulator.controllers.ai_controller import make_ai_controller
         model = load_model(args.model)
         model.n_jobs = 1
         if args.controller == "hybrid":
-            from data_eval.speed_planner import make_hybrid_controller
+            from f1_simulator.controllers.speed_planner import make_hybrid_controller
             controller = make_hybrid_controller(model, predict_action, track=track)
         else:
             controller = make_ai_controller(model, predict_action)

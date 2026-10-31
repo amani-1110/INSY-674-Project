@@ -1,3 +1,0 @@
-lap_time,distance_travelled,off_track_events,completed_lap,controller_name,elapsed_time,valid_lap,termination
-228.09999999999133,5802.7290081916335,0,True,baseline,228.09999999999133,True,lap_complete
-,882.9345112438198,0,False,imitation,600.0,False,timeout

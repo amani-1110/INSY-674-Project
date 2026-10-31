@@ -1,11 +1,7 @@
-
-# Preserve generated document and media bytes across platforms.
-*.pdf binary
-*.zip binary
-*.gif binary
+# Runtime images and serialized models must retain their exact bytes.
 *.png binary
-*.mp4 binary
 *.joblib binary
 
-# Track provenance hashes refer to the original LF bytes.
+# Preserve byte-level input provenance on all platforms.
 /data/*.csv text eol=lf
+/data/telemetry/**/*.csv -text whitespace=cr-at-eol

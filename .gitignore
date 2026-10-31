@@ -4,18 +4,10 @@ __pycache__/
 .venv/
 venv/
 .vscode/
+.DS_Store
 
-# Local authoring state and superseded rendering scratch (keep final packages)
+# Generated results, plots, presentations and local caches never belong in Git.
+/output/
 /tmp/
-/output/canva_video/draft_transaction.json
-/output/pdf/presentation/CANVA_LINK.json
-/output/pdf/presentation/build_boxed_version.py
-/output/pdf/presentation/build_previous.py
-/output/pdf/presentation/build_previous_story.py
-/output/pdf/presentation/slide-*.png
-/output/pdf/presentation/current-*.png
-/output/pdf/presentation/story-*.png
-/output/pdf/presentation/teaser-*.png
-/output/pdf/presentation/visual-*.png
-/output/pdf/presentation/optional-*.png
-/output/pdf/presentation/montage.png
+/cache/
+*.egg-info/

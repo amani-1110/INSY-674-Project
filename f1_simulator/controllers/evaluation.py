@@ -1,0 +1,131 @@
+def evaluate_controller(controller, track, dt=0.1, controller_name=None, max_time=300.0):
+    """
+    Evaluate a driving controller on a racetrack.
+
+    Parameters:
+        controller: Function that makes driving decisions.
+        track: The racetrack provided by your teammate.
+        dt: Time between simulation steps (seconds).
+
+    Returns:
+        Dictionary containing the driver's performance.
+    """
+
+    import math
+    if not math.isfinite(dt) or not 0 < dt <= 1:
+        raise ValueError("dt must be finite and between 0 and 1 second")
+
+    if not math.isfinite(max_time) or max_time <= 0:
+        raise ValueError("max_time must be finite and positive")
+
+    # These will be updated during the simulation.
+    lap_time = 0.0
+    distance_travelled = 0.0
+    off_track_events = 0
+    completed_lap = False
+    was_off_track = False
+
+ # Import the simulator functions
+    from f1_simulator.core.simulator import reset_simulation, simulate_step, get_observation
+
+    # Start a new simulation on the selected track
+    state, race_info = reset_simulation(track)
+
+    # A bounded attempt reports failure rather than running forever.
+
+    while lap_time < max_time - 1e-9 and not completed_lap:
+        # Get information about the car and track
+        observer = getattr(controller, "observe", None)
+        observation = (observer(state, track) if observer is not None else
+                       get_observation(state, track,
+                           lookahead_offsets=getattr(controller, "lookahead_offsets", None)))
+
+        # Ask the controller to make a driving decision
+        action = controller(observation)
+
+        # Move the car forward one simulation step
+        step_dt = min(dt, max_time - lap_time)
+        new_state, race_info = simulate_step(state, action, step_dt, track)
+
+        if race_info.get("lap_complete", False):
+            completed_lap = True
+
+        if "off_track" in race_info:
+            is_off_track = race_info["off_track"]
+            if is_off_track and not was_off_track:
+                off_track_events += 1
+            was_off_track = is_off_track
+
+       # Calculate distance moved during this step
+        dx = new_state["x"] - state["x"]
+        dy = new_state["y"] - state["y"]
+
+        step_distance = (dx ** 2 + dy ** 2) ** 0.5
+        distance_travelled += step_distance
+
+        # Update elapsed time
+        lap_time += step_dt
+
+        # Save the updated state
+        state = new_state
+
+    # Return the driver's performance results
+    result = calculate_metrics(
+    elapsed_time=lap_time,
+    distance_travelled=distance_travelled,
+    off_track_events=off_track_events,
+    completed_lap=completed_lap,
+    controller_name=controller_name
+)
+    result.update(elapsed_time=lap_time, valid_lap=completed_lap and off_track_events == 0,
+                  termination="lap_complete" if completed_lap else "timeout")
+    return result
+
+def calculate_metrics(
+    elapsed_time,
+    distance_travelled,
+    off_track_events,
+    completed_lap,
+    controller_name=None
+):
+     """
+     Calculate performance metrics for an AI driver.
+
+        elapsed_time: Time spent driving in seconds.
+        distance_travelled: Total distance driven in meters.
+        off_track_events: Number of times the car went off track.
+        completed_lap: Whether the car finished the lap.
+        """
+     return {
+            "lap_time": elapsed_time if completed_lap else None,
+            "distance_travelled": distance_travelled,
+            "off_track_events": off_track_events,
+            "completed_lap": completed_lap,
+            "controller_name": controller_name
+      }
+
+def compare_controllers(baseline_results, ai_results):
+    """
+    Compare the performance of the baseline driver
+    against the trained AI driver.
+    """
+
+    comparison = {
+        "baseline_completed": baseline_results["completed_lap"],
+        "ai_completed": ai_results["completed_lap"],
+        "baseline_lap_time": baseline_results["lap_time"],
+        "ai_lap_time": ai_results["lap_time"],
+        "baseline_off_track": baseline_results["off_track_events"],
+        "ai_off_track": ai_results["off_track_events"],
+        "baseline_distance": baseline_results["distance_travelled"],
+        "ai_distance": ai_results["distance_travelled"]
+    }
+
+    if baseline_results["lap_time"] is not None and ai_results["lap_time"] is not None:
+        comparison["time_improvement"] = (
+            baseline_results["lap_time"] - ai_results["lap_time"]
+        )
+    else:
+        comparison["time_improvement"] = None
+
+    return comparison
